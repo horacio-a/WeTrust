@@ -12,12 +12,14 @@ const IndexPage = (props) => {
     return (
         <>
             <Header />
+            <div className='conteinerimg'>
+                <img src='/img/imgindex.png' className='imgIndex'></img>
+            </div>
+            <CarruselIndex />
+            <ImgDeco />
 
-            <CarruselIndex/>
-            <ImgDeco/>
 
-
-            <Footer/>
+            <Footer />
         </>
 
 

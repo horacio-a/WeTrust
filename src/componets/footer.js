@@ -15,18 +15,18 @@ const Footer = (props) => {
                             CONTACTO
                         </div>
                         <ul>
-                            <li>
+                            <div>
                                 <i className="fa-solid fa-caret-right"></i>
                                     wetrust@gmail.com
-                            </li>
-                            <li>
+                            </div>
+                            <div>
                                 <i className="fa-solid fa-caret-right"></i>
                                 @wetrust
-                            </li>
-                            <li>
+                            </div>
+                            <div>
                                 <i className="fa-solid fa-caret-right"></i>
                                 +54 011 5787185
-                            </li>
+                            </div>
 
                         </ul>
                     </div>
@@ -35,30 +35,30 @@ const Footer = (props) => {
                             MENU
                         </div>
                         <ul>
-                            <li>
+                            <div>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <Link>
                                     Inicio
                                 </Link>
-                            </li>
-                            <li>
+                            </div>
+                            <div>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <Link>
                                     Sneakers
                                 </Link>
-                            </li>
-                            <li>
+                            </div>
+                            <div>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <Link>
-                                    Plichas
+                                    Pilchas
                                 </Link>
-                            </li>
-                            <li>
+                            </div>
+                            <div>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <Link>
                                     Accesorios
                                 </Link>
-                            </li>
+                            </div>
                         </ul>
                     </div>
                 </div>
@@ -78,18 +78,18 @@ const Footer = (props) => {
                             SOPORTE
                         </div>
                         <ul>
-                            <li>
+                            <div>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <Link>
                                     Políticas de devoluciones
                                 </Link>
-                            </li>
-                            <li>
+                            </div>
+                            <div>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <Link>
                                     Preguntas frecuentes
                                 </Link>
-                            </li>
+                            </div>
 
 
                         </ul>

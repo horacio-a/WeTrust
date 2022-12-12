@@ -46,7 +46,7 @@ const CardIndex = (props) => {
 
 
     return (
-        <Link to={`/product/${id}`} className={`card`} >
+        <Link to={`/product/id/${id}`} className={`card`} >
             <div className="content" >
                 <div className={`imgCardBack  `}  >
                     <div className="conteinerImgCard">
@@ -57,7 +57,7 @@ const CardIndex = (props) => {
                             <i className="fa-solid fa-cart-shopping"></i>
                         </div>
                         <div className="icon-card">
-                            <i style={{textTransform: "uppercase"}}>{size}</i>
+                            <div className="iconCardSize" >{size}</div>
                         </div>
                     </div>
 

@@ -10,7 +10,7 @@ const CarruselIndex = (props) => {
     useEffect(() => {
         const cargarMineria = async () => {
             setLoading(true);
-            const response = await axios.get('https://copordrop-api.herokuapp.com/api/productos/rgg8jmt1fdf87krhjqratzyqy9jp6f');
+            const response = await axios.get(`${process.env.REACT_APP_PAGE}/api/productos/destacados/token/${process.env.REACT_APP_API_KEY}`);
             for (let index = 0; index < response.data.length; index++) {
                 // console.log(response.data[index].talles)
 
@@ -21,7 +21,6 @@ const CarruselIndex = (props) => {
         cargarMineria();
 
     }, []);
-    console.log(productos)
 
     return (
         <>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
@@ -9,32 +9,89 @@ import Footer from '../componets/footer';
 
 const ProductPage = (props) => {
     const { id } = useParams()
+    const conteinerBtn = useRef('')
 
     const [loading, setLoading] = useState(false)
     const [productos, setProductos] = useState([])
     const [img, setImg] = useState('')
     const [talles, setTalles] = useState([])
+    const [SelectTalle, SetSelectTalle] = useState()
 
-    console.log(talles)
+    const setValor = (event) => {
+        var hijos = conteinerBtn.current.children
+        for (let i = 0; i < hijos.length; i++) {
+            const element = hijos[i];
+            element.style.color = '#3E3733'
+            element.style.background = '#EEEBDD'
+
+        }
+        event.target.style.color = '#EEEBDD'
+        event.target.style.background = '#16181A'
+
+        SetSelectTalle(event.target.innerHTML)
+    }
+    const comprar = () => {
+        alert(SelectTalle)
+    }
+
+
 
 
     useEffect(() => {
 
         const cargarMineria = async () => {
             setLoading(true);
-            const response = await axios.get(`http://localhost:3000/api/productos/rgg8jmt1fdf87krhjqratzyqy9jp6f/${id}`);
-            console.log(response.data)
-    
+            const response = await axios.get(`${process.env.REACT_APP_PAGE}/api/productos/id/${id}/token/${process.env.REACT_APP_API_KEY}`);
             setProductos(response.data[0].producto)
             setImg(response.data[0].img)
-            setTalles(response.data[0].talles)
+            var size = []
+            for (var property in response.data[0].talles) {
+                if (!(property === 'name' || property === 'id')) {
+                    if (response.data[0].talles[property] > 0) {
+                        const TallesTableShoe = {
+                            three_half: 3.5,
+                            four: 4.0,
+                            four_half: 4.5,
+                            five: 5.0,
+                            five_half: 5.5,
+                            six: 6.0,
+                            six_half: 6.5,
+                            seven: 7.0,
+                            seven_half: 7.5,
+                            eight: 8.0,
+                            eight_half: 8.5,
+                            nine: 9.0,
+                            nine_half: 9.5,
+                            ten: 10,
+                            ten_half: 10.5,
+                            eleven: 11.0,
+                            eleven_half: 11.5,
+                            twelve: 12.0,
+                            twelve_half: 12.5,
+                            thirteen: 13.0,
+                            thirteen_half: 13.5,
+                            fourteen: 14.0,
+                            fourteen_half: 14.5,
+                            fifteen: 15.0
+                        }
+                        if (response.data[0].producto.category === 'shoe') {
+                            size.push(TallesTableShoe[property])
+                        } else {
+                            size.push(property)
+                        }
+                    }
+
+                }
+            }
+            setTalles(size)
+
             setLoading(false)
         }
+
         cargarMineria();
 
-    }, [id]);
-    console.log(productos)
 
+    }, [id]);
     return (
         <>
             <Header />
@@ -42,7 +99,7 @@ const ProductPage = (props) => {
                 {
                     loading ? (
                         <div className="item">
-                            cargando...
+                            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
                         </div>
                     ) : (
                         <>
@@ -53,10 +110,19 @@ const ProductPage = (props) => {
                                 <div className="conteinerInfo">
                                     <div className="tituloProducto">{productos.name}</div>
                                     <div className="tituloPrice">$ {productos.price}</div>
-                                    <div className="BtnProducto">Comprar</div>
+                                    <div className="conteinerTalle" ref={conteinerBtn}>
+                                        {
+                                            talles.map(item => {
+                                                return (
+                                                    <div className="btnTalle" onClick={setValor}>
+                                                        {item}
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                    <div className="BtnProducto" onClick={comprar}>Comprar</div>
                                 </div>
-
-
                             </div>
                             <div className="conteinerDescription">
                                 <div className="tituloDescription">
@@ -64,21 +130,14 @@ const ProductPage = (props) => {
                                 </div>
                                 <div className="txtDescription">
                                     {productos.description}
-
                                 </div>
                             </div>
-                            </>
-
+                        </>
                     )
                 }
-
             </main>
-
-
             <Footer />
         </>
-
-
     );
 }
 export default ProductPage;
