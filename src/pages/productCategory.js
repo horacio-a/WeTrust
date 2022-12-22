@@ -15,6 +15,7 @@ const ProductCategoryPage = (props) => {
 
 
     useEffect(() => {
+        window.scrollTo(0, 0);
 
         const cargarMineria = async () => {
             setLoading(true);
@@ -22,6 +23,7 @@ const ProductCategoryPage = (props) => {
             setProductos(response.data)
             console.log(response.data)
             setLoading(false)
+
         }
 
         cargarMineria();
@@ -32,27 +34,29 @@ const ProductCategoryPage = (props) => {
         <>
             <Header />
             <main className="mainProducto">
-                <div className="Carrusel-index">
 
-                    {
-                        loading ? (
-                            <div className="item">
-                                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-                            </div>
-                        ) : (
-                                productos.map(item => <CardIndex
-                                    key={item.produto.id}
-                                    id={item.produto.id}
-                                    num={item}
-                                    name={item.produto.name}
-                                    price={item.produto.price}
-                                    img={item.img}
-                                    category={item.produto.category}
-                                    talles={item.talles}
-                                />)
-                        )
-                    }
-                </div>
+                {
+                    loading ? (
+                        <div className="item">
+                            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                        </div>
+                    ) : (
+                        <div className="Carrusel-index">
+
+                            {productos.map(item => <CardIndex
+                                key={item.produto.id}
+                                id={item.produto.id}
+                                num={item}
+                                name={item.produto.name}
+                                price={item.produto.price}
+                                img={item.img}
+                                category={item.produto.category}
+                                talles={item.talles}
+                            />)}
+                        </div>
+
+                    )
+                }
 
             </main>
             <Footer />

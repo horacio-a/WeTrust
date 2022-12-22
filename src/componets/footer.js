@@ -43,19 +43,19 @@ const Footer = (props) => {
                             </div>
                             <div>
                                 <i className="fa-solid fa-caret-right"></i>
-                                <Link>
+                                <Link to={'/categorias/shoe'} >
                                     Sneakers
                                 </Link>
                             </div>
                             <div>
                                 <i className="fa-solid fa-caret-right"></i>
-                                <Link>
+                                <Link  to={'/categorias/clothing'} >
                                     Pilchas
                                 </Link>
                             </div>
                             <div>
                                 <i className="fa-solid fa-caret-right"></i>
-                                <Link>
+                                <Link  to={'/categorias/accessories'}>
                                     Accesorios
                                 </Link>
                             </div>

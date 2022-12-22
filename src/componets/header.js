@@ -65,7 +65,7 @@ const Header = (props) => {
                         <Link to={'/serch'}>
                             <i className="fa-solid fa-magnifying-glass"></i>
                         </Link>
-                        <Link to={'/buy'}>
+                        <Link to={'/cart'}>
                             <i className="fa-solid fa-cart-shopping"></i>
 
                         </Link>
@@ -84,27 +84,27 @@ const Header = (props) => {
                             <Link to={'/categorias/accessories'} className="tituloHeader" onClick={CategoriaHeaderFuntion}>
                                 Accesorios
                             </Link>
-                            <Link to={'/categorias/accessories/anteojos'} className="categorioHeader">
+                            <Link to={'/subcategorias/anteojos'} className="categorioHeader"onClick={CategoriaHeaderFuntion}>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <div>Anteojos</div>
                             </Link>
-                            <Link to={'/categorias/accessories/bolsos'} className="categorioHeader">
+                            <Link to={'/subcategorias/bolsos'} className="categorioHeader"onClick={CategoriaHeaderFuntion}>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <div>Bolsos</div>
                             </Link>
-                            <Link to={'/categorias/accessories/ceniceros'} className="categorioHeader">
+                            <Link to={'/subcategorias/ceniceros'} className="categorioHeader"onClick={CategoriaHeaderFuntion}>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <div>Ceniceros</div>
                             </Link>
-                            <Link to={'/categorias/accessories/encendedores'} className="categorioHeader">
+                            <Link to={'/subcategorias/encendedores'} className="categorioHeader"onClick={CategoriaHeaderFuntion}>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <div>Encendedores</div>
                             </Link>
-                            <Link to={'/categorias/accessories/gorros'} className="categorioHeader">
+                            <Link to={'/subcategorias/gorros'} className="categorioHeader"onClick={CategoriaHeaderFuntion}>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <div>Gorros/Gorras</div>
                             </Link>
-                            <Link to={'/categorias/accessories/juguetes'} className="categorioHeader">
+                            <Link to={'/subcategorias/juguetes'} className="categorioHeader"onClick={CategoriaHeaderFuntion}>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <div>Juguetes</div>
                             </Link>
@@ -113,27 +113,27 @@ const Header = (props) => {
                             <Link to={'/categorias/clothing'} className="tituloHeader" onClick={CategoriaHeaderFuntion}>
                                 Indumentaria
                             </Link>
-                            <Link to={'/categorias/clothing/Camperas'} className="categorioHeader">
+                            <Link to={'/subcategorias/Camperas'} className="categorioHeader"onClick={CategoriaHeaderFuntion}>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <div>Camperas</div>
                             </Link>
-                            <Link to={'/categorias/clothing/Hoodies'} className="categorioHeader">
+                            <Link to={'/subcategorias/Hoodies'} className="categorioHeader"onClick={CategoriaHeaderFuntion}>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <div>Hoodies</div>
                             </Link>
-                            <Link to={'/categorias/clothing/Pantalones'} className="categorioHeader">
+                            <Link to={'/subcategorias/Pantalones'} className="categorioHeader"onClick={CategoriaHeaderFuntion}>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <div>Pantalones</div>
                             </Link>
-                            <Link to={'/categorias/clothing/Remeras'} className="categorioHeader">
+                            <Link to={'/subcategorias/Remeras'} className="categorioHeader"onClick={CategoriaHeaderFuntion}>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <div>Remeras</div>
                             </Link>
-                            <Link to={'/categorias/clothing/Shorts'} className="categorioHeader">
+                            <Link to={'/subcategorias/Shorts'} className="categorioHeader"onClick={CategoriaHeaderFuntion}>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <div>Shorts</div>
                             </Link>
-                            <Link to={'/categorias/clothing/Underwear'} className="categorioHeader">
+                            <Link to={'/subcategorias/Underwear'} className="categorioHeader"onClick={CategoriaHeaderFuntion}>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <div>Underwear</div>
                             </Link>
@@ -142,11 +142,11 @@ const Header = (props) => {
                             <Link to={'/categorias/shoe'} className="tituloHeader" onClick={CategoriaHeaderFuntion}>
                                 Sneakers
                             </Link>
-                            <Link to={'/categorias/clothing/sneakers'} className="categorioHeader">
+                            <Link to={'/subcategorias/sneakers'} className="categorioHeader"onClick={CategoriaHeaderFuntion}>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <div>Sneakers</div>
                             </Link>
-                            <Link to={'/categorias/clothing/Slides'} className="categorioHeader">
+                            <Link to={'/subcategorias/Slides'} className="categorioHeader"onClick={CategoriaHeaderFuntion}>
                                 <i className="fa-solid fa-caret-right"></i>
                                 <div>Slides</div>
                             </Link>
