@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useRef, useState } from "react";
+import React from "react";
 
 
 const PedidoPorProducto = ({ product }) => {

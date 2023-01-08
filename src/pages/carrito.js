@@ -41,7 +41,7 @@ const CarritoPage = ({ ShoppingCart, setShoppingCart }) => {
                     <div className="conteinerBtnDeleteAll">
                         <div className="bntDeleteAll" onClick={async () => {
                             const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
-                            await axios.post(`http://localhost:3000/cart/deleteall/user/${LoggedUserJSON.user}`)
+                            await axios.post(`${process.env.REACT_APP_PAGE}/cart/deleteall/user/${LoggedUserJSON.user}/token/${process.env.REACT_APP_API_KEY}`)
                             window.location.replace('');
                         }}>Eliminar Todo</div></div>
                 </div>
@@ -76,7 +76,7 @@ const CarritoPage = ({ ShoppingCart, setShoppingCart }) => {
                             product: ShoppingCart
                         })
 
-                        axios.post(`http://localhost:3000/pedidos/add/token/${process.env.REACT_APP_API_KEY}`, { obj }, {
+                        axios.post(`${process.env.REACT_APP_PAGE}/pedidos/add/token/${process.env.REACT_APP_API_KEY}`, { obj }, {
                             headers: {
                                 'Content-Type': 'application/json'
                             }

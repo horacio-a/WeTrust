@@ -16,7 +16,7 @@ const LoginComponent = ({ envioLogin, setCart }) => {
 
         const user = formLogin.current.name.value
         const password = formLogin.current.password.value
-        const response = await axios.get(`http://localhost:3000/usuarios/login/user/${user}/password/${password}/token/${process.env.REACT_APP_API_KEY}`)
+        const response = await axios.get(`${process.env.REACT_APP_PAGE}/usuarios/login/user/${user}/password/${password}/token/${process.env.REACT_APP_API_KEY}`)
         console.log()
         if (response.data[0].authenticated === true) {
             window.localStorage.setItem(
@@ -45,7 +45,7 @@ const LoginComponent = ({ envioLogin, setCart }) => {
         }else if(email !== Confirmaremail){
             setErrorMsg('email no coincide ')
         }else{
-            const response = await axios.get(`http://localhost:3000/usuarios/create/user/${user}/password/${password}/email/${email}/token/${process.env.REACT_APP_API_KEY}`)
+            const response = await axios.get(`${process.env.REACT_APP_PAGE}/usuarios/create/user/${user}/password/${password}/email/${email}/token/${process.env.REACT_APP_API_KEY}`)
             if(response.data === 'Cuenta creada'){
                 window.location.href = '/'
             }else{

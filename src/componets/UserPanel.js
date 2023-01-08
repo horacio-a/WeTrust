@@ -42,7 +42,7 @@ const UserPanel = ({ cleanLocalStorage }) => {
     useEffect(()=> {
      const getPedidos = async() =>{
         setLoadingPedidos(true)
-        const response = await axios.get('http://localhost:3000/pedidos/user/admin')
+        const response = await axios.get(`${process.env.REACT_APP_PAGE}/pedidos/user/admin/token/${process.env.REACT_APP_API_KEY}`)
         setDataPedidos(response.data)
         setLoadingPedidos(false)
 

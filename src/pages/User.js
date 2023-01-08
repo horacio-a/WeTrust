@@ -40,7 +40,7 @@ const UserPage = ({ ShoppingCart, setShoppingCart }) => {
 
     const setCart = async () => {
         const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser')) 
-        const cart = await (await axios.get(`http://localhost:3000/cart/getInfo/user/${LoggedUserJSON.user}`)).data
+        const cart = await (await axios.get(`${process.env.REACT_APP_PAGE}/cart/getInfo/user/${LoggedUserJSON.user}/token/${process.env.REACT_APP_API_KEY}`)).data
         console.log(cart)
         setShoppingCart(cart)
     }

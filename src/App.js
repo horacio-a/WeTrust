@@ -19,7 +19,7 @@ function App() {
     if(LoggedUserJSON){
       //get carrito del usuario
       const getcart = async () => {
-        const cart = await (await axios.get(`http://localhost:3000/cart/getInfo/user/${LoggedUserJSON.user}`)).data
+        const cart = await (await axios.get(`${process.env.REACT_APP_PAGE}/cart/getInfo/user/${LoggedUserJSON.user}/token/${process.env.REACT_APP_API_KEY}`)).data
         console.log(cart)
         setShoppingCart(cart)
       }

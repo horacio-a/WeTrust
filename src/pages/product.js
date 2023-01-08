@@ -37,7 +37,7 @@ const ProductPage = ({ ShoppingCart, setShoppingCart }) => {
         window.scrollTo(0, 0);
         const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
         const getcart = async () => {
-            const cart = await (await axios.get(`http://localhost:3000/cart/getInfo/user/${LoggedUserJSON.user}`)).data
+            const cart = await (await axios.get(`${process.env.REACT_APP_PAGE}/cart/getInfo/user/${LoggedUserJSON.user}/token/${process.env.REACT_APP_API_KEY}`)).data
             console.log(cart)
             setShoppingCart(cart)
         }
@@ -255,7 +255,7 @@ const ProductPage = ({ ShoppingCart, setShoppingCart }) => {
                                                                 setButtonLoding(true)
                                                                 let max_stock = getMaxStock()
                                                                 let obj = JSON.stringify({ id_product: productos.id, user: LoggedUserJSON.user, name: productos.name, price: productos.price, quantity: 1, talle: SelectTalle, category: productos.category, img: img, max_stock: max_stock })
-                                                                axios.post(`http://localhost:3000/cart/add`, { obj }, {
+                                                                axios.post(`${process.env.REACT_APP_PAGE}/cart/add/token/${process.env.REACT_APP_API_KEY}`, { obj }, {
                                                                     headers: {
                                                                         'Content-Type': 'application/json'
                                                                     }
@@ -278,7 +278,7 @@ const ProductPage = ({ ShoppingCart, setShoppingCart }) => {
                                                                     let dataFilter = data.filter(product => product !== dataRepeat)
                                                                     let cantidad = dataRepeat.quantity + 1
                                                                     let obj = JSON.stringify({ id: productos.id, name: productos.name, talle: SelectTalle, quantity: cantidad })
-                                                                    axios.post(`http://localhost:3000/cart/update`, { obj }, {
+                                                                    axios.post(`${process.env.REACT_APP_PAGE}/cart/update/token/${process.env.REACT_APP_API_KEY}`, { obj }, {
                                                                         headers: {
                                                                             'Content-Type': 'application/json'
                                                                         }
@@ -305,7 +305,7 @@ const ProductPage = ({ ShoppingCart, setShoppingCart }) => {
                                                             let max_stock = getMaxStock()
 
                                                             let obj = JSON.stringify({ id_product: productos.id, user: LoggedUserJSON.user, name: productos.name, price: productos.price, quantity: 1, talle: SelectTalle, category: productos.category, img: img, max_stock: max_stock })
-                                                            axios.post(`http://localhost:3000/cart/add`, { obj }, {
+                                                            axios.post(`${process.env.REACT_APP_PAGE}/cart/add/token/${process.env.REACT_APP_API_KEY}`, { obj }, {
                                                                 headers: {
                                                                     'Content-Type': 'application/json'
                                                                 }

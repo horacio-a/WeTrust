@@ -42,7 +42,7 @@ const CartItem = ({ data}) => {
 
                             let cantidad = parseInt(quantity) + 1
                             let obj = JSON.stringify({ id: id, name: name, talle: talle, quantity: cantidad })
-                            axios.post(`http://localhost:3000/cart/update`, { obj }, {
+                            axios.post(`${process.env.REACT_APP_PAGE}/cart/update/token/${process.env.REACT_APP_API_KEY}`, { obj }, {
                                 headers: {
                                     'Content-Type': 'application/json'
                                 }
@@ -55,7 +55,7 @@ const CartItem = ({ data}) => {
                     <div className="buttoncart" onClick={async () => {
                         if (quantity === 1) {
                             let obj = JSON.stringify({ id: id, name: name, talle: talle })
-                            axios.post(`http://localhost:3000/cart/delete`, { obj }, {
+                            axios.post(`${process.env.REACT_APP_PAGE}/cart/delete/token/${process.env.REACT_APP_API_KEY}`, { obj }, {
                                 headers: {
                                     'Content-Type': 'application/json'
                                 }
@@ -63,7 +63,7 @@ const CartItem = ({ data}) => {
                         } else {
                             let cantidad = parseInt(quantity) - 1
                             let obj = JSON.stringify({ id: id, name: name, talle: talle, quantity: cantidad })
-                            axios.post(`http://localhost:3000/cart/update`, { obj }, {
+                            axios.post(`${process.env.REACT_APP_PAGE}/cart/update/token/${process.env.REACT_APP_API_KEY}`, { obj }, {
                                 headers: {
                                     'Content-Type': 'application/json'
                                 }
@@ -77,7 +77,7 @@ const CartItem = ({ data}) => {
                 <div className="conteinerDelete">
                     <div className="buttonDelete" onClick={async () => {
                         let obj = JSON.stringify({ id: id, name: name, talle: talle })
-                        axios.post(`http://localhost:3000/cart/delete`, { obj }, {
+                        axios.post(`${process.env.REACT_APP_PAGE}/cart/delete/token/${process.env.REACT_APP_API_KEY}`, { obj }, {
                             headers: {
                                 'Content-Type': 'application/json'
                             }
