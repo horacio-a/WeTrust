@@ -5,6 +5,8 @@ import '../index.css'
 import toast, { Toaster } from 'react-hot-toast';
 import emailjs from 'emailjs-com'
 
+import NotRealPage from "../componets/NotRealPage";
+
 
 
 const ContactoPage = (props) => {
@@ -28,7 +30,7 @@ const ContactoPage = (props) => {
 
         const Enviar = comprobarEstado()
 
-        if(Enviar === true){
+        if (Enviar === true) {
 
             emailjs.sendForm(
                 process.env.REACT_APP_SERVICE,
@@ -49,7 +51,7 @@ const ContactoPage = (props) => {
             form.current.subject.value = ''
             form.current.user_email.value = ''
             form.current.message.value = ''
-        }else{
+        } else {
             toast.dismiss(ToastLoading);
             toast.error('Complete todos los campos');
             console.log('no enviar')
@@ -72,6 +74,8 @@ const ContactoPage = (props) => {
                         <input type={'text'} placeholder={'Asusntos'} name='subject'></input>
                         <textarea placeholder={'Mensaje'} name='message'></textarea>
                         <input type={'submit'} value="Enviar" ></input>
+                        <NotRealPage />
+
                     </form>
                 </div>
             </main>

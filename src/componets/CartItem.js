@@ -2,36 +2,91 @@
 import React from "react";
 import axios from "axios";
 
-const CartItem = ({ data, addToCard, delFromCart, clearCart }) => {
-    let {id, name, price, quantity, talle, img } = data
+const CartItem = ({ data}) => {
+    let { id, name, price, quantity, talle, img, category, max_stock } = data
+    const subtotal = price * quantity
     return (
 
         <>
-            <img src={img} alt={`producto ${name}`} height={50}></img>
-            <h3> {name}</h3>
-            <h5> {price} </h5>
-            <p> {quantity}      {talle} </p>
-            <p> {quantity}      {talle} </p>
-            <button onClick={ async() => {
-                if(quantity === 1){ 
-                    let obj = JSON.stringify({ id: id, name: name, talle: talle})
-                    axios.post(`http://localhost:3000/cart/delete`, { obj }, {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                }else{
-                    let cantidad = parseInt(quantity)  - 1
-                    let obj = JSON.stringify({ id: id, name: name, talle: talle,quantity: cantidad })
-                    axios.post(`http://localhost:3000/cart/update`, { obj }, {
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                }
+            <div className="conteinerProducto">
+                <div className="backImgProduct">
+                    <img src={img} className='imgProduct' alt={`producto ${name}`} height={50}></img>
 
-                window.location.replace('');
-            }}> delete one</button>
+                </div>
+                <div className="conteinerName">
+                    <div> {name}</div>
+                </div>
+                <div className="conteinerQty">
+                    <div> Qty: {quantity} </div>
+                    {
+                        category === 'shoe'
+                            ? <div > Size: {talle}us </div>
+                            : (category === 'clothing'
+                                ? <div > Size: {talle} </div>
+                                : <></>
+                            )
+
+                    }
+
+                </div>
+                <div className="conteinerPrice">
+                    <div> C/u $ {price}.00 </div>
+                    <div> subtotal $ {subtotal}.00 </div>
+
+                </div>
+                <div className="conteinerButtonADD">
+                    {
+                        quantity === max_stock 
+                        ? <div className="buttoncartInactives"> + </div>
+                        :<div className="buttoncart" onClick={async () => {
+
+                            let cantidad = parseInt(quantity) + 1
+                            let obj = JSON.stringify({ id: id, name: name, talle: talle, quantity: cantidad })
+                            axios.post(`http://localhost:3000/cart/update`, { obj }, {
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                            window.location.replace('');
+    
+                        }}>+</div>
+                    }
+                    
+                    <div className="buttoncart" onClick={async () => {
+                        if (quantity === 1) {
+                            let obj = JSON.stringify({ id: id, name: name, talle: talle })
+                            axios.post(`http://localhost:3000/cart/delete`, { obj }, {
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                        } else {
+                            let cantidad = parseInt(quantity) - 1
+                            let obj = JSON.stringify({ id: id, name: name, talle: talle, quantity: cantidad })
+                            axios.post(`http://localhost:3000/cart/update`, { obj }, {
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                        }
+
+                        window.location.replace('');
+                    }}>-</div>
+
+                </div>
+                <div className="conteinerDelete">
+                    <div className="buttonDelete" onClick={async () => {
+                        let obj = JSON.stringify({ id: id, name: name, talle: talle })
+                        axios.post(`http://localhost:3000/cart/delete`, { obj }, {
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                        window.location.replace('');
+                    }}>X</div>
+                </div>
+            </div>
+
             <br></br>
             <br></br>
             <br></br>

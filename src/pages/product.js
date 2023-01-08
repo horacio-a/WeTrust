@@ -28,7 +28,7 @@ const ProductPage = ({ ShoppingCart, setShoppingCart }) => {
 
         }
         event.target.style.color = '#EEEBDD'
-        event.target.style.background = '#16181A'
+        event.target.style.background = '#23232C'
 
         SetSelectTalle(event.target.innerHTML)
     }
@@ -145,7 +145,6 @@ const ProductPage = ({ ShoppingCart, setShoppingCart }) => {
                                             : <div className="BtnProducto" onClick={() => {
                                                 let data = ShoppingCart
                                                 const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
-                                                console.log(LoggedUserJSON)
                                                 if (LoggedUserJSON) {
                                                     function getStockPorTalle(cantidad) {
                                                         if (productos.category === 'shoe') {
@@ -207,18 +206,61 @@ const ProductPage = ({ ShoppingCart, setShoppingCart }) => {
                                                         )
                                                         return respuesta
                                                     }
+                                                    function getMaxStock() {
+                                                        if (productos.category === 'shoe') {
+                                                            const TallesTableShoe = {
+                                                                three_half: 3.5,
+                                                                four: 4.0,
+                                                                four_half: 4.5,
+                                                                five: 5.0,
+                                                                five_half: 5.5,
+                                                                six: 6.0,
+                                                                six_half: 6.5,
+                                                                seven: 7.0,
+                                                                seven_half: 7.5,
+                                                                eight: 8.0,
+                                                                eight_half: 8.5,
+                                                                nine: 9.0,
+                                                                nine_half: 9.5,
+                                                                ten: 10,
+                                                                ten_half: 10.5,
+                                                                eleven: 11.0,
+                                                                eleven_half: 11.5,
+                                                                twelve: 12.0,
+                                                                twelve_half: 12.5,
+                                                                thirteen: 13.0,
+                                                                thirteen_half: 13.5,
+                                                                fourteen: 14.0,
+                                                                fourteen_half: 14.5,
+                                                                fifteen: 15.0
+                                                            }
+                                                            for (var property in TallesTableShoe) {
+                                                                if (TallesTableShoe[property] === parseFloat(SelectTalle)) {
+                                                                    return (allJson.talles[property])
 
+                                                                }
+                                                            }
+                                                        } else if (productos.category === 'clothing') {
+                                                            return (allJson.talles[SelectTalle])
+                                                        } else if (productos.category === 'accessories') {
+                                                            return (productos.stock)
+                                                        }
+                                                    }
                                                     if (SelectTalle || productos.category === 'accessories') {
+                                                        console.log(allJson.talles)
+                                                        console.log(SelectTalle)
+
                                                         if (data.length > 0) {
                                                             if (dataRepeated() === undefined) {
                                                                 setButtonLoding(true)
-                                                                let obj = JSON.stringify({ id_product: productos.id, user: LoggedUserJSON.user, name: productos.name, price: productos.price, quantity: 1, talle: SelectTalle, category: productos.category, img: img })
+                                                                let max_stock = getMaxStock()
+                                                                let obj = JSON.stringify({ id_product: productos.id, user: LoggedUserJSON.user, name: productos.name, price: productos.price, quantity: 1, talle: SelectTalle, category: productos.category, img: img, max_stock: max_stock })
                                                                 axios.post(`http://localhost:3000/cart/add`, { obj }, {
                                                                     headers: {
                                                                         'Content-Type': 'application/json'
                                                                     }
                                                                 })
-                                                                data.push({ id: productos.id, name: productos.name, price: productos.price, quantity: 1, talle: SelectTalle })
+                                                                data.push({ id_product: productos.id, user: LoggedUserJSON.user, name: productos.name, price: productos.price, quantity: 1, talle: SelectTalle, category: productos.category, img: img, max_stock: max_stock })
 
                                                                 setShoppingCart(data)
                                                                 setTimeout(() => {
@@ -231,16 +273,17 @@ const ProductPage = ({ ShoppingCart, setShoppingCart }) => {
                                                                 let dataRepeat = dataRepeated()
                                                                 if (getStockPorTalle(dataRepeat.quantity) === false) {
                                                                     setButtonLoding(true)
+                                                                    let max_stock = getMaxStock()
 
                                                                     let dataFilter = data.filter(product => product !== dataRepeat)
                                                                     let cantidad = dataRepeat.quantity + 1
-                                                                    let obj = JSON.stringify({ id: productos.id, name: productos.name, talle: SelectTalle,quantity: cantidad })
+                                                                    let obj = JSON.stringify({ id: productos.id, name: productos.name, talle: SelectTalle, quantity: cantidad })
                                                                     axios.post(`http://localhost:3000/cart/update`, { obj }, {
                                                                         headers: {
                                                                             'Content-Type': 'application/json'
                                                                         }
                                                                     })
-                                                                    dataFilter.push({ id: productos.id, name: productos.name, price: productos.price, quantity: dataRepeat.quantity + 1, talle: SelectTalle })
+                                                                    dataFilter.push({ id_product: productos.id, user: LoggedUserJSON.user, name: productos.name, price: productos.price, quantity: dataRepeat.quantity + 1, talle: SelectTalle, category: productos.category, img: img, max_stock: max_stock })
 
                                                                     setShoppingCart(dataFilter)
                                                                     setTimeout(() => {
@@ -259,13 +302,15 @@ const ProductPage = ({ ShoppingCart, setShoppingCart }) => {
 
                                                         } else {
                                                             setButtonLoding(true)
-                                                            let obj = JSON.stringify({ id_product: productos.id, user: LoggedUserJSON.user, name: productos.name, price: productos.price, quantity: 1, talle: SelectTalle, category: productos.category, img: img })
+                                                            let max_stock = getMaxStock()
+
+                                                            let obj = JSON.stringify({ id_product: productos.id, user: LoggedUserJSON.user, name: productos.name, price: productos.price, quantity: 1, talle: SelectTalle, category: productos.category, img: img, max_stock: max_stock })
                                                             axios.post(`http://localhost:3000/cart/add`, { obj }, {
                                                                 headers: {
                                                                     'Content-Type': 'application/json'
                                                                 }
                                                             })
-                                                            data.push({ id: productos.id, name: productos.name, price: productos.price, quantity: 1, talle: SelectTalle })
+                                                            data.push({ id_product: productos.id, user: LoggedUserJSON.user, name: productos.name, price: productos.price, quantity: 1, talle: SelectTalle, category: productos.category, img: img, max_stock: max_stock })
                                                             setShoppingCart(data)
                                                             setTimeout(() => {
 

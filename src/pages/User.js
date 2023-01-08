@@ -4,6 +4,7 @@ import Footer from '../componets/footer';
 import '../index.css'
 import LoginComponent from "../componets/Login";
 import axios from "axios";
+import UserPanel from "../componets/UserPanel";
 
 
 const UserPage = ({ ShoppingCart, setShoppingCart }) => {
@@ -53,8 +54,9 @@ const UserPage = ({ ShoppingCart, setShoppingCart }) => {
                 {
                     user
                         ? <>
-                        register
-                        <button onClick={cleanLocalStorage}></button>
+                        <UserPanel
+                        cleanLocalStorage= {cleanLocalStorage}/>
+
 
                         </>
                         : <LoginComponent
