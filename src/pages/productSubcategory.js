@@ -7,11 +7,20 @@ import '../index.css'
 import Header from '../componets/header';
 import Footer from '../componets/footer';
 import CardIndex from "../componets/cardindex";
-const ProductSubcategoryPage = (props) => {
+import ProductsTitle from "../componets/ProductsTitle";
+
+
+
+const ProductSubcategoryPage = ({ setSearchState, SearchState }) => {
     const { subcategory } = useParams()
 
     const [loading, setLoading] = useState(false)
     const [productos, setProductos] = useState([])
+    const [numImg, setNumImg] = useState()
+
+    useEffect(() => {
+        setNumImg(Math.floor(Math.random() * 4)) 
+    }, [setNumImg])
 
 
     useEffect(() => {
@@ -30,16 +39,20 @@ const ProductSubcategoryPage = (props) => {
     }, [subcategory]);
     return (
         <>
-            <Header />
-            <main className="mainProducto">
-                <div className="Carrusel-index">
+            <Header setSearchState={setSearchState} SearchState={SearchState} />
 
-                    {
-                        loading ? (
-                            <div className="item">
-                                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-                            </div>
-                        ) : (
+            <div className={`MainPages  ${SearchState ? 'Deactivated' : 'Active'}`}>
+                <ProductsTitle titulo={subcategory} numImg={numImg}/>
+
+                <main className="mainProducto">
+                    <div className="Carrusel-index">
+
+                        {
+                            loading ? (
+                                <div className="item">
+                                    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                                </div>
+                            ) : (
                                 productos.map(item => <CardIndex
                                     key={item.produto.id}
                                     id={item.produto.id}
@@ -50,13 +63,15 @@ const ProductSubcategoryPage = (props) => {
                                     category={item.produto.category}
                                     talles={item.talles}
                                 />)
-                        )
-                    }
-                </div>
+                            )
+                        }
+                    </div>
 
-            </main>
-            <Footer />
+                </main>
+                <Footer />
+            </div>
         </>
+
     );
 }
 export default ProductSubcategoryPage;

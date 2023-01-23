@@ -91,8 +91,8 @@ const LoginComponent = ({ envioLogin, setCart }) => {
                             <input type={'text'} placeholder={'nombre'} name={'name'}></input>
                             <input type={'email'} placeholder={'email'} name={'email'}></input>
                             <input type={'email'} placeholder={'Confirmar email'} name={'Confirmaremail'}></input>
-                            <input type={'password'} placeholder={'contraseña'} name={'password'}></input>
-                            <input type={'password'} placeholder={'Confirmar contrseña'} name={'Confirmarpassword'}></input>
+                            <input type={'password'} placeholder={'contraseña'} name={'password'}autoComplete='off'/>
+                            <input type={'password'} placeholder={'Confirmar contrseña'} name={'Confirmarpassword'} autoComplete='off'/> 
 
                             <input type={'submit'} className='button' ></input>
                         </form>

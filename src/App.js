@@ -12,15 +12,15 @@ import axios from 'axios';
 
 function App() {
   const [ShoppingCart, setShoppingCart] = useState([])
-  
+  const [SearchState, setSearchState] = useState(false)
   useEffect(() => {
-    const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser')) 
+    setSearchState(false)
+    const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
 
-    if(LoggedUserJSON){
+    if (LoggedUserJSON) {
       //get carrito del usuario
       const getcart = async () => {
         const cart = await (await axios.get(`${process.env.REACT_APP_PAGE}/cart/getInfo/user/${LoggedUserJSON.user}/token/${process.env.REACT_APP_API_KEY}`)).data
-        console.log(cart)
         setShoppingCart(cart)
       }
       getcart()
@@ -28,17 +28,46 @@ function App() {
   }, [])
 
 
+
   return (
-    <div className="App">
+    <div className={`App`}>
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<IndexPage ShoppingCart={ShoppingCart} />} />
-          <Route path='/product/id/:id' element={<ProductPage ShoppingCart={ShoppingCart} setShoppingCart={setShoppingCart} />} />
-          <Route path='/categorias/:category' element={<ProductCategoryPage />} />
-          <Route path='/subcategorias/:subcategory' element={<ProductSubcategoryPage />} />
-          <Route path='/contacto' element={<ContactoPage />} />
-          <Route path='/user' element={<UserPage  ShoppingCart={ShoppingCart} setShoppingCart={setShoppingCart}/>}  />
-          <Route path='/cart' element={<CarritoPage ShoppingCart={ShoppingCart} setShoppingCart={setShoppingCart} />} />
+
+          <Route path='/' element={<IndexPage
+            ShoppingCart={ShoppingCart}
+            SearchState={SearchState}
+            setSearchState={setSearchState} />} />
+
+          <Route path='/product/id/:id' element={<ProductPage
+            ShoppingCart={ShoppingCart}
+            setShoppingCart={setShoppingCart}
+            setSearchState={setSearchState}
+            SearchState={SearchState} />} />
+
+          <Route path='/categorias/:category' element={<ProductCategoryPage
+            setSearchState={setSearchState}
+            SearchState={SearchState} />} />
+
+          <Route path='/subcategorias/:subcategory' element={<ProductSubcategoryPage
+            setSearchState={setSearchState}
+            SearchState={SearchState} />} />
+
+          <Route path='/contacto' element={<ContactoPage
+            setSearchState={setSearchState}
+            SearchState={SearchState} />} />
+
+          <Route path='/user' element={<UserPage
+            ShoppingCart={ShoppingCart}
+            setShoppingCart={setShoppingCart}
+            setSearchState={setSearchState}
+            SearchState={SearchState} />} />
+
+          <Route path='/cart' element={<CarritoPage
+            ShoppingCart={ShoppingCart}
+            setShoppingCart={setShoppingCart}
+            setSearchState={setSearchState}
+            SearchState={SearchState} />} />
 
         </Routes>
 

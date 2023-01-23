@@ -7,26 +7,23 @@ import axios from "axios";
 import UserPanel from "../componets/UserPanel";
 
 
-const UserPage = ({ ShoppingCart, setShoppingCart }) => {
+const UserPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchState }) => {
 
     window.scrollTo(0, 0);
     const [user, setUser] = useState(null)
-    const [userRegister, SetUserRegister] = useState('')
 
-    console.log(userRegister)
+
 
     useEffect(() => {
         const LoggedUserJSON = window.localStorage.getItem('LoggedAppUser')
 
         if (LoggedUserJSON) {
             const user = JSON.parse(LoggedUserJSON)
-            SetUserRegister(true)
             setUser(user)
         }
     }, [])
 
     const cleanLocalStorage = () => {
-        SetUserRegister(false)
         setUser('')
         setShoppingCart([])
 
@@ -41,13 +38,14 @@ const UserPage = ({ ShoppingCart, setShoppingCart }) => {
     const setCart = async () => {
         const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser')) 
         const cart = await (await axios.get(`${process.env.REACT_APP_PAGE}/cart/getInfo/user/${LoggedUserJSON.user}/token/${process.env.REACT_APP_API_KEY}`)).data
-        console.log(cart)
         setShoppingCart(cart)
     }
 
     return (
         <>
-            <Header />
+                    <Header setSearchState={setSearchState}  SearchState={SearchState} />
+
+        <div className={`MainPages  ${SearchState ? 'Deactivated' : 'Active'}`}>
 
 
             <main className='mainUser'>
@@ -70,6 +68,7 @@ const UserPage = ({ ShoppingCart, setShoppingCart }) => {
             </main>
 
             <Footer />
+        </div>
         </>
 
 

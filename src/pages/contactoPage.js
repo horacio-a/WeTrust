@@ -9,7 +9,7 @@ import NotRealPage from "../componets/NotRealPage";
 
 
 
-const ContactoPage = (props) => {
+const ContactoPage = ({ setSearchState, SearchState }) => {
     const form = useRef();
 
     window.scrollTo(0, 0);
@@ -62,7 +62,9 @@ const ContactoPage = (props) => {
 
     return (
         <>
-            <Header />
+            <Header setSearchState={setSearchState} SearchState={SearchState} />
+
+            <div className={`MainPages  ${SearchState ? 'Deactivated' : 'Active'}`}></div>
             <main className='mainContacto'>
                 <img src='img/contactoimg.webp' alt='Imagen decorativa' className='imgContacto'></img>
                 <div className='conteinerFormContacto'>

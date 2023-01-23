@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Pedidos from "./Pedidos";
+import Direcciones from "./Direcciones";
+import EditPassword from "./EditPassword";
 
 
 const UserPanel = ({ cleanLocalStorage }) => {
@@ -11,6 +13,10 @@ const UserPanel = ({ cleanLocalStorage }) => {
     const [DireccionState, SetDireccionState] = useState(false)
     const [DetallesState, SetDetallesState] = useState(false)
     const [CerrarState, SetCerrarState] = useState(false)
+    const [Shippingaddress, setShippingaddress] = useState([])
+    const [Billingaddress, setBillingaddress] = useState([])
+    const [titulo, setTitulo] =useState('')
+
 
     const OpenPedidos = () => {
         SetPedidoState(true)
@@ -25,6 +31,7 @@ const UserPanel = ({ cleanLocalStorage }) => {
         SetDetallesState(false)
         SetCerrarState(false)
     }
+
     const OpenDetalles = () => {
         SetPedidoState(false)
         SetDireccionState(false)
@@ -39,22 +46,42 @@ const UserPanel = ({ cleanLocalStorage }) => {
     }
 
 
-    useEffect(()=> {
-     const getPedidos = async() =>{
-        setLoadingPedidos(true)
-        const response = await axios.get(`${process.env.REACT_APP_PAGE}/pedidos/user/admin/token/${process.env.REACT_APP_API_KEY}`)
-        setDataPedidos(response.data)
-        setLoadingPedidos(false)
+    useEffect(() => {
+        const tituloCuenta = () =>{
+            setTitulo('Tu Cuenta')
+        }
+        const getAdrres = async () => {
+            const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
+            console.log(LoggedUserJSON)
+            if (LoggedUserJSON.billingaddress) {
+                setBillingaddress(LoggedUserJSON.billingaddress)
+            } else {
+                console.log('none')
+            }
+            if (LoggedUserJSON.shippingaddress) {
+                setShippingaddress(LoggedUserJSON.shippingaddress)
 
-     }
-     getPedidos()
+            } else {
+                console.log('none')
+            }
+        }
+        const getPedidos = async () => {
+            setLoadingPedidos(true)
+            const response = await axios.get(`${process.env.REACT_APP_PAGE}/pedidos/user/admin/token/${process.env.REACT_APP_API_KEY}`)
+            setDataPedidos(response.data)
+            setLoadingPedidos(false)
+
+        }
+        tituloCuenta()
+        getAdrres()
+        getPedidos()
     }, [])
     return (
 
         <>
             <div className="ConteinerTituloUserPanel">
                 <div className="TituloUserPanel">
-                    Tu Cuenta
+                    {titulo}
                 </div>
             </div>
 
@@ -64,10 +91,11 @@ const UserPanel = ({ cleanLocalStorage }) => {
                     <div className={`Btn ${pedidosState ? 'active' : ''}`} onClick={OpenPedidos}>
                         Pedidos
                     </div>
+                    <div className={`Btn ${DetallesState ? 'active' : ''}`} onClick={OpenDetalles}>Detalles de cuenta</div>
+
                     <div className={`Btn ${DireccionState ? 'active' : ''}`} onClick={OpenDireccion}>
                         Dirección</div>
-                    <div className={`Btn ${DetallesState ? 'active' : ''}`} onClick={OpenDetalles}>Detalles de cuenta</div>
-                    <div className={`Btn ${CerrarState ? 'active' : ''}`} onClick={OpenCerrar}>Cerra cuenta</div>
+                    <div className={`Btn ${CerrarState ? 'active' : ''}`} onClick={OpenCerrar}>Cerrar cuenta</div>
                 </div>
 
 
@@ -76,23 +104,48 @@ const UserPanel = ({ cleanLocalStorage }) => {
                     <div className={`content ${pedidosState ? 'active' : ''}`} >
                         {
                             loadingPedios ? <>loading</>
-                            :
-                            (dataPedidos.length === 0
-                                ? <div className="noPedidos">
-                                    <div> No hay ningún pedido </div>
-                                    <Link className="Btnvolver" to={'/'} >Ir a comprar</Link>
-                                </div>
-                                : (dataPedidos.map(item => <Pedidos data={item} />)))
+                                :
+                                (dataPedidos.length === 0
+                                    ? <div className="noPedidos">
+                                        <div> No hay ningún pedido </div>
+                                        <Link className="Btnvolver" to={'/'} >Ir a comprar</Link>
+                                    </div>
+                                    : (dataPedidos.map(item => <Pedidos key={item.PedidoData.num_order} data={item} />)))
                         }
                     </div>
+
+                    
                     <div className={`content ${DireccionState ? 'active' : ''}`} >
-                        Dirección
+                        <Direcciones Billingaddress={Billingaddress} Shippingaddress={Shippingaddress} setTitulo={setTitulo} />
+
                     </div>
                     <div className={`content ${DetallesState ? 'active' : ''}`} >
-                        Detalles de cuenta
+                    
+
+                    <EditPassword/>
+
                     </div>
+
                     <div className={`content ${CerrarState ? 'active' : ''}`}>
-                        Cerra cuenta
+                        <div className="blockCloseSession">
+                            <div className="tituloSession">Cerrar sesión</div>
+                            <div className="editarBtn" onClick={() => {
+                            window.localStorage.removeItem('LoggedAppUser')
+                            window.location.replace('');
+                        }
+                        }>Cerrar</div>
+
+                        </div>
+                        <div className="blockCloseSession">
+                            <div className="tituloSession">Eliminar cuenta</div>
+                            <div className="subtituloSession">La cuenta una vez eliminada no se podrá volver a recuperar</div>
+
+                            <div className="deleteBtn" onClick={() => {
+
+                        }
+                        }>Eliminar</div>
+
+                        </div>
                     </div>
                 </div>
 
@@ -104,4 +157,6 @@ const UserPanel = ({ cleanLocalStorage }) => {
 
 }
 
+
 export default UserPanel;
+

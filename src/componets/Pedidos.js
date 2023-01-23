@@ -24,7 +24,7 @@ const Pedidos = ({ data }) => {
                     </div>
                 </div>
                 {
-                    productos.map( item => <PedidoPorProducto product={item}/> )
+                    productos.map( item => <PedidoPorProducto key={item.id} product={item}/> )
                 }
                 
             </div>
