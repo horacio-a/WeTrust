@@ -160,11 +160,25 @@ header .icons .search {
     align-items: center;
 }
 
-.unidadConteiner {
+.MarcaHeader .unidadConteiner {
+    width: 50%;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    height: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+
+.CategoriaHeader .unidadConteiner {
     width: 15%;
     padding-left: 2.5%;
     padding-right: 2.5%;
     height: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .categorioHeader {
@@ -195,6 +209,7 @@ header .icons .search {
     height: 25vh;
     background-color: #DCD6BC;
     transition: all 0.5s;
+    flex-wrap: wrap;
 }
 
 
@@ -1854,21 +1869,22 @@ a .fa-magnifying-glass {
 }
 
 
-.mainProductsTitle{
+.mainProductsTitle {
     width: 100vw;
     height: 35vh;
     position: relative;
 
 
 }
-.mainProductsTitle img{
-    opacity: 50%    ;
+
+.mainProductsTitle img {
+    opacity: 50%;
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.txtProductsTitle{
+.txtProductsTitle {
     text-transform: capitalize;
     color: #EEEBDD;
     font-size: 5vh;
@@ -1876,4 +1892,147 @@ a .fa-magnifying-glass {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.conteinerPassword.active {
+    width: 50%;
+    border-radius: 0.75vh;
+    height: 10vh;
+    border: 1px solid #EEEBDD;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeIn 0.75s;
+
+}
+
+.conteinerPassword.deactive {
+    display: none;
+    width: 50%;
+    border-radius: 0.75vh;
+    height: 10vh;
+    border: 1px solid #EEEBDD;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tituloChangePassword {
+    font-size: 2.25vh;
+    color: #EEEBDD;
+    margin-left: 5%;
+    font-weight: 500;
+}
+
+.btnChangePassword {
+    width: 15%;
+    margin-right: 5%;
+    height: 45%;
+    border-radius: 0.75vh;
+    background-color: #23232C;
+    color: #EEEBDD;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.ChangePasswordConteiner.deactive {
+    display: none;
+    width: 50%;
+    height: 50vh;
+
+}
+
+
+.ChangePasswordConteiner.active {
+    display: block;
+    width: 45%;
+    padding: 2.5%;
+    height: 50vh;
+    border-radius: 0.75vh;
+    background-color: #EEEBDD;
+    animation: fadeIn 0.75s;
+
+}
+
+.ChangePasswordConteiner .fa-xmark {
+    color: #3E3733;
+}
+
+
+.conteinerInfo.active {
+    width: 50%;
+    border-radius: 0.75vh;
+    height: 35vh;
+    margin-bottom: 2.5vh;
+    border: 1px solid #EEEBDD;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.75s;
+
+
+}
+
+.conteinerInfo.deactive {
+    display: none;
+
+}
+
+.conteinerTitle {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.MainInfo {
+    width: 100%;
+    height: 25vh;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.unitMainInfo {
+    color: #EEEBDD;
+    width: 33%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.TituloMainInfo {
+    font-size: 1.75vh;
+    font-weight: 500;
+    color: #EEEBDD;
+}
+
+.txtMainInfo {
+    opacity: 75%;
+}
+
+
+.ChangeInfoConteiner.deactive {
+    display: none;
+    width: 50%;
+    height: 50vh;
+
+}
+
+
+.ChangeInfoConteiner.active {
+    display: block;
+    width: 45%;
+    padding: 2.5%;
+    height: 50vh;
+    border-radius: 0.75vh;
+    background-color: #EEEBDD;
+    animation: fadeIn 0.75s;
+
+}
+
+.ChangeInfoConteiner .fa-xmark {
+    color: #3E3733;
 }

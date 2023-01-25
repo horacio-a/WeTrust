@@ -1,5 +1,7 @@
-import React, {  useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
 
 import EnviosGratis from '../componets/EnviosGratis';
 import Search from "./Search";
@@ -8,7 +10,17 @@ const Header = ({ setSearchState, SearchState }) => {
 
     const [MarcaHeader, setMarcaHeader] = useState(false)
     const [CategoriaHeader, setCategoriaHeader] = useState(false)
+    const [marcas, setMarcas] = useState([])
 
+
+    useEffect(() => {
+        const cargarMarcar = async () => {
+            const response = await axios.get(`${process.env.REACT_APP_PAGE}/api/marcas/token/${process.env.REACT_APP_API_KEY}`);
+            console.log(response)
+            setMarcas(response.data)
+        }
+        cargarMarcar()
+    }, [setMarcas])
 
 
     const HeaderMarcaFuntion = () => {
@@ -83,7 +95,23 @@ const Header = ({ setSearchState, SearchState }) => {
                         </div>
                     </header>
                     <div className={` MarcaHeader ${MarcaHeader ? " active" : ''}`} >
+                        <div className="conteinerInfoHeader">
+                            <div className="unidadConteiner">
+                                <div className="tituloHeader" >
+                                    Marcas
+                                </div>
+                                {
+                                    marcas.map(item => {
+                                        return (
+                                        <Link to={`/marca/${item}`} className="categorioHeader" onClick={CategoriaHeaderFuntion}>
+                                            <i className="fa-solid fa-caret-right"></i>
+                                            <div>{item}</div>
+                                        </Link>)
+                                    })      
+                                }
+                            </div>
 
+                        </div>
 
                     </div>
                     <div className={` CategoriaHeader ${CategoriaHeader ? " active" : ''}`} >
@@ -165,15 +193,15 @@ const Header = ({ setSearchState, SearchState }) => {
                 <div className="backconteiner"></div>
 
 
-                </div >
+            </div >
 
-                <div className={`Search  ${SearchState ? 'Active' : 'Deactivated'}`}>
-                    <Search setSearchState={setSearchState}  SearchState={SearchState} />
-                </div>
-            </>
+            <div className={`Search  ${SearchState ? 'Active' : 'Deactivated'}`}>
+                <Search setSearchState={setSearchState} SearchState={SearchState} />
+            </div>
+        </>
 
-            )
+    )
 
 }
 
-            export default Header;
+export default Header;

@@ -121,7 +121,7 @@ const UserPanel = ({ cleanLocalStorage }) => {
                     </div>
                     <div className={`content ${DetallesState ? 'active' : ''}`} >
                     
-
+                        
                     <EditPassword/>
 
                     </div>

@@ -74,7 +74,10 @@ const Search = ({ SearchState, setSearchState }) => {
                     </div>
                     <div className="SearchEngine">
                         <div className="uno">
-                            <Link to={`/search/category/${SearchCategoty}/product/${search}`}>
+                            <Link  to={`/search/category/${SearchCategoty}/product/${search}`}
+                             onClick={()=>{
+                                setSearchState(false)
+                            }}>
                                 <i className="fa-solid fa-magnifying-glass" ></i>
                             </Link>
 

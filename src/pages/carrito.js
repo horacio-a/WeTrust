@@ -42,9 +42,9 @@ const CarritoPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
                         </div>
                         <div className="conteinerBtnDeleteAll">
                             <div className="bntDeleteAll" onClick={async () => {
-                                const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
-                                await axios.post(`${process.env.REACT_APP_PAGE}/cart/deleteall/user/${LoggedUserJSON.user}/token/${process.env.REACT_APP_API_KEY}`)
                                 window.location.replace('');
+                                const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
+                                axios.post(`${process.env.REACT_APP_PAGE}/cart/deleteall/user/${LoggedUserJSON.user}/token/${process.env.REACT_APP_API_KEY}`)
                             }}>Eliminar Todo</div></div>
                     </div>
 
@@ -69,7 +69,8 @@ const CarritoPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
                     <div className="conteinerBtnSell">
                         <div className="BtnSell" onClick={() => {
                             const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
-
+                            window.location.replace('');
+                            axios.post(`${process.env.REACT_APP_PAGE}/cart/deleteall/user/${LoggedUserJSON.user}/token/${process.env.REACT_APP_API_KEY}`)
                             var today = new Date()
                             var options = { weekday: 'long', year: 'numeric', month: 'long', day: '2-digit' }
                             var dia = today.toLocaleDateString('es-mx', options).split(', ')[1]

@@ -5,6 +5,7 @@ import ProductSubcategoryPage from './pages/productSubcategory';
 import ContactoPage from './pages/contactoPage';
 import UserPage from './pages/User';
 import CarritoPage from './pages/carrito';
+import ProductSearch from './pages/productSearch';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -39,6 +40,10 @@ function App() {
             SearchState={SearchState}
             setSearchState={setSearchState} />} />
 
+          <Route path='/search/category/:category/product/:product' element={<ProductSearch
+            setSearchState={setSearchState}
+            SearchState={SearchState} />} />
+
           <Route path='/product/id/:id' element={<ProductPage
             ShoppingCart={ShoppingCart}
             setShoppingCart={setShoppingCart}
@@ -48,6 +53,8 @@ function App() {
           <Route path='/categorias/:category' element={<ProductCategoryPage
             setSearchState={setSearchState}
             SearchState={SearchState} />} />
+
+
 
           <Route path='/subcategorias/:subcategory' element={<ProductSubcategoryPage
             setSearchState={setSearchState}
