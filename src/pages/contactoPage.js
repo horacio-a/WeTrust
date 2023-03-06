@@ -1,11 +1,11 @@
 import React, { useRef } from "react";
-import Header from '../componets/header';
-import Footer from '../componets/footer';
+import Header from '../componets/general/header';
+import Footer from "../componets/general/footer";
 import '../index.css'
 import toast, { Toaster } from 'react-hot-toast';
 import emailjs from 'emailjs-com'
 
-import NotRealPage from "../componets/NotRealPage";
+import NotRealPage from "../componets/general/NotRealPage";
 
 
 
@@ -22,8 +22,7 @@ const ContactoPage = ({ setSearchState, SearchState }) => {
         }
     }
 
-    const SubmitContacto = async (event) => {
-        event.preventDefault();
+    const SubmitContacto = async () => {
 
         const ToastLoading = toast.loading('Loading...');
 
@@ -34,7 +33,7 @@ const ContactoPage = ({ setSearchState, SearchState }) => {
 
             emailjs.sendForm(
                 process.env.REACT_APP_SERVICE,
-                process.env.REACT_APP_TEMPLATE,
+                process.env.REACT_APP_TEMPLATE_CONTACTO,
                 form.current,
                 process.env.REACT_APP_APIPUBLIC
             ).then((result) => {
@@ -64,18 +63,18 @@ const ContactoPage = ({ setSearchState, SearchState }) => {
         <>
             <Header setSearchState={setSearchState} SearchState={SearchState} />
 
-            <div className={`MainPages  ${SearchState ? 'Deactivated' : 'Active'}`}></div>
+            <div className={`MainPages  ${SearchState ? 'Deactivated' : 'Active'}`}>
             <main className='mainContacto'>
                 <img src='img/contactoimg.webp' alt='Imagen decorativa' className='imgContacto'></img>
                 <div className='conteinerFormContacto'>
                     <div className='tituloContacto'>Contáctate</div>
-                    <form className='FormContacto' onSubmit={SubmitContacto} ref={form}>
+                    <form className='FormContacto'  ref={form}>
                         <input type={'hidden'} value='WeTrust' name="page_name"></input>
                         <input type={'text'} placeholder={'Nombre'} name='user_name'></input>
                         <input type={'text'} placeholder={'Email'} name='user_email'></input>
                         <input type={'text'} placeholder={'Asusntos'} name='subject'></input>
                         <textarea placeholder={'Mensaje'} name='message'></textarea>
-                        <input type={'submit'} value="Enviar" ></input>
+                        <div className="BtnContact" onClick={SubmitContacto}  > Enviar</div>
                         <NotRealPage />
 
                     </form>
@@ -84,6 +83,8 @@ const ContactoPage = ({ setSearchState, SearchState }) => {
             <Toaster />
 
             <Footer />
+            </div>
+           
         </>
 
 

@@ -6,16 +6,16 @@ import Direcciones from "./Direcciones";
 import EditPassword from "./EditPassword";
 
 
-const UserPanel = ({ cleanLocalStorage }) => {
+const UserPanel = () => {
     const [loadingPedios, setLoadingPedidos] = useState(true)
     const [dataPedidos, setDataPedidos] = useState('')
-    const [pedidosState, SetPedidoState] = useState(true)
+    const [pedidosState, SetPedidoState] = useState(false)
     const [DireccionState, SetDireccionState] = useState(false)
-    const [DetallesState, SetDetallesState] = useState(false)
+    const [DetallesState, SetDetallesState] = useState(true)
     const [CerrarState, SetCerrarState] = useState(false)
     const [Shippingaddress, setShippingaddress] = useState([])
     const [Billingaddress, setBillingaddress] = useState([])
-    const [titulo, setTitulo] =useState('')
+    const [titulo, setTitulo] = useState('')
 
 
     const OpenPedidos = () => {
@@ -47,7 +47,7 @@ const UserPanel = ({ cleanLocalStorage }) => {
 
 
     useEffect(() => {
-        const tituloCuenta = () =>{
+        const tituloCuenta = () => {
             setTitulo('Tu Cuenta')
         }
         const getAdrres = async () => {
@@ -68,6 +68,7 @@ const UserPanel = ({ cleanLocalStorage }) => {
         const getPedidos = async () => {
             setLoadingPedidos(true)
             const response = await axios.get(`${process.env.REACT_APP_PAGE}/pedidos/user/admin/token/${process.env.REACT_APP_API_KEY}`)
+            console.log(response.data)
             setDataPedidos(response.data)
             setLoadingPedidos(false)
 
@@ -88,10 +89,13 @@ const UserPanel = ({ cleanLocalStorage }) => {
             <div className="userPanelMain">
 
                 <div className="UserPanelMenu">
+                    <div className={`Btn ${DetallesState ? 'active' : ''}`} onClick={OpenDetalles}>
+                        Detalles de cuenta
+                    </div>
+
                     <div className={`Btn ${pedidosState ? 'active' : ''}`} onClick={OpenPedidos}>
                         Pedidos
                     </div>
-                    <div className={`Btn ${DetallesState ? 'active' : ''}`} onClick={OpenDetalles}>Detalles de cuenta</div>
 
                     <div className={`Btn ${DireccionState ? 'active' : ''}`} onClick={OpenDireccion}>
                         Dirección</div>
@@ -114,15 +118,15 @@ const UserPanel = ({ cleanLocalStorage }) => {
                         }
                     </div>
 
-                    
+
                     <div className={`content ${DireccionState ? 'active' : ''}`} >
                         <Direcciones Billingaddress={Billingaddress} Shippingaddress={Shippingaddress} setTitulo={setTitulo} />
 
                     </div>
                     <div className={`content ${DetallesState ? 'active' : ''}`} >
-                    
-                        
-                    <EditPassword/>
+
+
+                        <EditPassword setTitulo={setTitulo} />
 
                     </div>
 
@@ -130,10 +134,10 @@ const UserPanel = ({ cleanLocalStorage }) => {
                         <div className="blockCloseSession">
                             <div className="tituloSession">Cerrar sesión</div>
                             <div className="editarBtn" onClick={() => {
-                            window.localStorage.removeItem('LoggedAppUser')
-                            window.location.replace('');
-                        }
-                        }>Cerrar</div>
+                                window.localStorage.removeItem('LoggedAppUser')
+                                window.location.replace('');
+                            }
+                            }>Cerrar</div>
 
                         </div>
                         <div className="blockCloseSession">
@@ -142,8 +146,8 @@ const UserPanel = ({ cleanLocalStorage }) => {
 
                             <div className="deleteBtn" onClick={() => {
 
-                        }
-                        }>Eliminar</div>
+                            }
+                            }>Eliminar</div>
 
                         </div>
                     </div>

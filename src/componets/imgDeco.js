@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
-const ImgDeco = (props) => {
+const ImgDeco = ({ScrollDestacado}) => {
 
 
 
@@ -11,7 +10,9 @@ const ImgDeco = (props) => {
 
             <div className="conteinerMain">
                 <div className="imgContent">
-                    <Link className="img1">
+                    <Link onClick={()=>{
+                        ScrollDestacado()
+                    }} className="img1">
                         <img src="img/img1.jpg" alt="Productos destacados"></img>
                         <div className="tituloImg">PRODUCTOS DESTACADOS</div>
                     </Link>

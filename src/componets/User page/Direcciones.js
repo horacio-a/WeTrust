@@ -100,18 +100,14 @@ const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
                 user: LoggedUserJSON.user
             }
         })
-
         axios.post(`${process.env.REACT_APP_PAGE}/usuarios/edit/direccion/token/${process.env.REACT_APP_API_KEY}`, { obj }, {
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-
     }
 
     const updateUser = async () => {
-
-
         const response = await axios.get(`${process.env.REACT_APP_PAGE}/usuarios/login/user/${LoggedUserJSON.user}/password/admin/token/${process.env.REACT_APP_API_KEY}`)
         if (response.data[0].authenticated === true) {
             window.localStorage.setItem(
@@ -119,8 +115,6 @@ const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
             )
         }
         window.location.replace('');
-
-
     }
 
 
@@ -202,13 +196,15 @@ const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
                 </div>
             </div>
             <div className={`mainDirecciones ${editar ? 'active' : 'deactive'}`} >
+                <div className="titleMainDireccciones">
+                    <i className="fa-solid fa-xmark" onClick={() => {
+                        cleanForm()
+                        setEditar(false)
+                        setTitulo('Tu Cuenta')
 
-                <div onClick={() => {
-                    cleanForm()
-                    setEditar(false)
-                    setTitulo('Tu Cuenta')
+                    }}></i>
+                </div>
 
-                }}>volver</div>
 
                 <form className="adrress" ref={form}>
                     <div className="row">

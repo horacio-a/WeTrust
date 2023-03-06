@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 
-import EnviosGratis from '../componets/EnviosGratis';
-import Search from "./Search";
+import EnviosGratis from './EnviosGratis';
+import Search from "../Search";
 
 const Header = ({ setSearchState, SearchState }) => {
 
@@ -103,7 +103,7 @@ const Header = ({ setSearchState, SearchState }) => {
                                 {
                                     marcas.map(item => {
                                         return (
-                                        <Link to={`/marca/${item}`} className="categorioHeader" onClick={CategoriaHeaderFuntion}>
+                                        <Link to={`/marca/${item}`} className="categorioHeader" onClick={HeaderMarcaFuntion}>
                                             <i className="fa-solid fa-caret-right"></i>
                                             <div>{item}</div>
                                         </Link>)

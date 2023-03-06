@@ -4,9 +4,9 @@ import { useParams } from "react-router-dom";
 
 
 import '../index.css'
-import Header from '../componets/header';
-import Footer from '../componets/footer';
-import CardIndex from "../componets/cardindex";
+import Header from '../componets/general/header';
+import Footer from "../componets/general/footer";
+import CardProduct from "../componets/cardProduct";
 import ProductsTitle from "../componets/ProductsTitle";
 
 const ProductCategoryPage = ({ setSearchState, SearchState }) => {
@@ -60,9 +60,9 @@ const ProductCategoryPage = ({ setSearchState, SearchState }) => {
                                 <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
                             </div>
                         ) : (
-                            <div className="Carrusel-index">
+                            <div className="carrusel-products">
 
-                                {productos.map(item => <CardIndex
+                                {productos.map(item => <CardProduct
                                     key={item.produto.id}
                                     id={item.produto.id}
                                     num={item}

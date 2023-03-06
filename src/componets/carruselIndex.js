@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import CardIndex from "./cardindex";
+import CardProduct from "../componets/cardProduct";
+import { Element } from "react-scroll";
 
 
 const CarruselIndex = (props) => {
@@ -11,10 +12,7 @@ const CarruselIndex = (props) => {
         const cargarMineria = async () => {
             setLoading(true);
             const response = await axios.get(`${process.env.REACT_APP_PAGE}/api/productos/destacados/token/${process.env.REACT_APP_API_KEY}`);
-            for (let index = 0; index < response.data.length; index++) {
-                // console.log(response.data[index].talles)
 
-            }
             setProductos(response.data)
             setLoading(false)
         }
@@ -24,8 +22,8 @@ const CarruselIndex = (props) => {
 
     return (
         <>
-            <div className="conteiner-main">
-                <div className="titulo-main">
+            <div name="myScrollToElement" id='ContainerElementID' className="conteiner-main">
+                <div className="titulo-main" id="destacado">
                     PRODUCTOS DESTACADOS
                 </div>
                 {
@@ -36,9 +34,9 @@ const CarruselIndex = (props) => {
                             </div>
                         ) :
                         (
-                            <div className="Carrusel-index">
+                            <div className="carrusel-products">
 
-                                {productos.map(item => <CardIndex
+                                {productos.map(item => <CardProduct
                                     key={item.produto.id}
                                     id={item.produto.id}
                                     num={item}

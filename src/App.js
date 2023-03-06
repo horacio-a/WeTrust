@@ -9,12 +9,14 @@ import ProductSearch from './pages/productSearch';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import ProductBrandPage from './pages/productBrand';
 
 
 function App() {
   const [ShoppingCart, setShoppingCart] = useState([])
   const [SearchState, setSearchState] = useState(false)
   useEffect(() => {
+
     setSearchState(false)
     const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
 
@@ -54,7 +56,9 @@ function App() {
             setSearchState={setSearchState}
             SearchState={SearchState} />} />
 
-
+          <Route path='/marca/:marca' element={<ProductBrandPage
+            setSearchState={setSearchState}
+            SearchState={SearchState} />} />
 
           <Route path='/subcategorias/:subcategory' element={<ProductSubcategoryPage
             setSearchState={setSearchState}

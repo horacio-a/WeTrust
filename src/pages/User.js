@@ -1,10 +1,10 @@
 import React, { useEffect,  useState } from "react";
-import Header from '../componets/header';
-import Footer from '../componets/footer';
+import Header from '../componets/general/header';
+import Footer from "../componets/general/footer";
 import '../index.css'
-import LoginComponent from "../componets/Login";
+import LoginComponent from "../componets/User page/Login";
 import axios from "axios";
-import UserPanel from "../componets/UserPanel";
+import UserPanel from "../componets/User page/UserPanel";
 
 
 const UserPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchState }) => {

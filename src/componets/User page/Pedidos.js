@@ -1,5 +1,5 @@
 import React from "react";
-import PedidoPorProducto from "./pedidosxProducto";
+import PedidoPorProducto from "../pedidosxProducto";
 
 const Pedidos = ({ data }) => {
     let { PedidoData, productos } = data
