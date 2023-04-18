@@ -37,6 +37,7 @@ const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
         form.current.cod_postal.value = ''
         form.current.email.value = ''
         form.current.phone_num.value = ''
+        
     }
 
     const setValueForm = (type) => {
@@ -100,6 +101,7 @@ const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
                 user: LoggedUserJSON.user
             }
         })
+        
         axios.post(`${process.env.REACT_APP_PAGE}/usuarios/edit/direccion/token/${process.env.REACT_APP_API_KEY}`, { obj }, {
             headers: {
                 'Content-Type': 'application/json'

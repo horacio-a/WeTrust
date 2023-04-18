@@ -10,7 +10,7 @@ import UserPanel from "../componets/User page/UserPanel";
 const UserPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchState }) => {
 
     window.scrollTo(0, 0);
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState(false)
 
 
 
@@ -29,7 +29,7 @@ const UserPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchState }
 
         window.localStorage.removeItem('LoggedAppUser')
     }
-    const envioLogin = (e) => {
+    const envioLogin = () => {
         setUser(true)
 
     }

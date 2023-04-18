@@ -66,8 +66,10 @@ const UserPanel = () => {
             }
         }
         const getPedidos = async () => {
+            const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
+
             setLoadingPedidos(true)
-            const response = await axios.get(`${process.env.REACT_APP_PAGE}/pedidos/user/admin/token/${process.env.REACT_APP_API_KEY}`)
+            const response = await axios.get(`${process.env.REACT_APP_PAGE}/pedidos/user/${LoggedUserJSON.user}/token/${process.env.REACT_APP_API_KEY}`)
             console.log(response.data)
             setDataPedidos(response.data)
             setLoadingPedidos(false)
@@ -135,6 +137,7 @@ const UserPanel = () => {
                             <div className="tituloSession">Cerrar sesión</div>
                             <div className="editarBtn" onClick={() => {
                                 window.localStorage.removeItem('LoggedAppUser')
+                                window.localStorage.removeItem('TimeSession')
                                 window.location.replace('');
                             }
                             }>Cerrar</div>

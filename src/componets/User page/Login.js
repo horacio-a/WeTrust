@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import emailjs from 'emailjs-com'
 
 
@@ -9,6 +9,8 @@ const LoginComponent = ({ envioLogin, setCart }) => {
     const formRegister = useRef();
     const [Sending, setSendig] = useState(false)
     const [SndStep, setSndStep] = useState(false)
+    const [ThdStep, setThdStep] = useState(false)
+
     const [ValueRegister, setValueRegister] = useState({
         user: '',
         email: '',
@@ -31,86 +33,154 @@ const LoginComponent = ({ envioLogin, setCart }) => {
     })
 
 
+    useEffect(() => {
+        let istrue = window.localStorage.getItem('AlreadyRegistered')
+        if (istrue === 'true') {
+            setTypeForm(true)
+        }
+        if (istrue === null) {
+            setTypeForm(false)
+        }
+    }, [])
 
 
+    const SubmitLoginRequest = async () => {
 
-    const SubmitLoginRequest = async (e) => {
-        e.preventDefault();
+        const obj = JSON.stringify({
+            user: formLogin.current.name.value,
+            password: formLogin.current.password.value
+        })
 
-        const user = formLogin.current.name.value
-        const password = formLogin.current.password.value
-        const response = await axios.get(`${process.env.REACT_APP_PAGE}/usuarios/login/user/${user}/password/${password}/token/${process.env.REACT_APP_API_KEY}`)
-        console.log()
+        const response = await axios.post(`${process.env.REACT_APP_PAGE}/usuarios/login/token/${process.env.REACT_APP_API_KEY}`, {obj})
+        console.log(response)
+
         if (response.data[0].authenticated === true) {
             window.localStorage.setItem(
                 'LoggedAppUser', JSON.stringify(response.data[1])
             )
+            window.localStorage.setItem('TimeSession', Math.round(new Date().getTime() / 1000))
+            window.localStorage.setItem('AlreadyRegistered', true)
             setCart()
             envioLogin()
         } else {
-            setErrorMsg('El nombre de usuario ' + formLogin.current.name.value + ' no está registrado en este sitio')
+            setErrorMsg(response.data[0].data)
         }
         setTimeout(() => {
             setErrorMsg('')
         }, 6500);
+
     }
 
 
-    const SubtimFirstRegister = () => {
+    const SubtimFirstRegister = async () => {
+        const user = ValueRegister.user
+        const email = ValueRegister.email
+        const obj = JSON.stringify({
+            user: user,
+            email: email
+        })
+        const response = await axios.post(`${process.env.REACT_APP_PAGE}/usuarios/IsUserRepeted/token/${process.env.REACT_APP_API_KEY}`, { obj }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+
         if (ValueRegister.password !== ValueRegister.confirmPassword && ValueRegister.email !== ValueRegister.confirmEmail) {
             setErrorMsg('contraseña y email no coincide ')
         } else if (ValueRegister.password !== ValueRegister.confirmPassword) {
             setErrorMsg('contraseña no coincide ')
         } else if (ValueRegister.email !== ValueRegister.confirmEmail) {
             setErrorMsg('email no coincide ')
-        } else {
+        }
+        if (response.data.state === false) {
             setSndStep(true)
-            console.log(ValueRegister.user, ValueRegister.email, ValueRegister.password)
+        } else {
+            setErrorMsg(response.data.data)
+
         }
     }
 
 
     const SubmitRegisterRequest = async (e) => {
 
-        const user = ValueRegister.user
-        const password = ValueRegister.password
-        const email = ValueRegister.email
-        const address = ValueRegister.address
-        const phone_number = ValueRegister.phone_number
-        const name = ValueRegister.name
-        const lastname = ValueRegister.lastname
-        const DNI = ValueRegister.DNI
-        const birth_date = ValueRegister.birth_date
+        CheckRegisterData()
+        if (CheckRegisterData() === true) {
 
-        const response = await axios.get(`${process.env.REACT_APP_PAGE}/usuarios/create/user/${user}/password/${password}/email/${email}/token/${process.env.REACT_APP_API_KEY}`)
-        if (response.data === 'Cuenta creada') {
-            let templateParams = {
-                to_name: user,
-                to_email: email,
-                url: 'url'
+            var obj = JSON.stringify(ValueRegister)
+            const response = await axios.post(`${process.env.REACT_APP_PAGE}/usuarios/create/token/${process.env.REACT_APP_API_KEY}`, { obj }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            if (response.data.data === 'Cuenta creada') {
+                let templateParams = {
+                    to_name: ValueRegister.name,
+                    to_email: ValueRegister.email,
+                    authCod: response.data.authCod,
+                }
+                emailjs.send(
+                    process.env.REACT_APP_SERVICE,
+                    process.env.REACT_APP_TEMPLATE_CONFIRM,
+                    templateParams,
+                    process.env.REACT_APP_APIPUBLIC
+                ).then((result) => {
+                    console.log(result.text);
+
+                });
+                window.localStorage.setItem('TemporalEmail', ValueRegister.email)
+                window.location.replace('/user/confirm/add')
             }
-            console.log(process.env.REACT_APP_SERVICE,
-                process.env.REACT_APP_TEMPLATE_CONFIRM,
-                templateParams,
-                process.env.REACT_APP_APIPUBLIC)
-            emailjs.send(
-                process.env.REACT_APP_SERVICE,
-                process.env.REACT_APP_TEMPLATE_CONFIRM,
-                templateParams,
-                process.env.REACT_APP_APIPUBLIC
-            ).then((result) => {
-                console.log(result.text);
-            });
 
-        } else {
-            console.log(response.data)
-            setErrorMsg(response.data)
+        }
+
+    }
+
+    const CheckRegisterData = () => {
+        var Checkgood = true
+
+        if (ValueRegister.address === '') {
+            setErrorMsg('Ingrese una direccion')
+            Checkgood = false
+        }
+        if (ValueRegister.birth_date === '') {
+            setErrorMsg('Ingrese una fecha de cumpleaños')
+            Checkgood = false
+        }
+        if (ValueRegister.DNI === '') {
+            setErrorMsg('Ingrese un DNI')
+            Checkgood = false
+        }
+
+        if (ValueRegister.phone_number === '') {
+            setErrorMsg('Ingrese un numero de telefono')
+            Checkgood = false
+        }
+        if (ValueRegister.lastname === '') {
+            setErrorMsg('Ingrese un Apellido')
+            Checkgood = false
+        }
+        if (ValueRegister.lastname === '') {
+            setErrorMsg('Ingrese un Apellido')
+            Checkgood = false
+        }
+        if (ValueRegister.name === '') {
+            setErrorMsg('Ingrese un nombre')
+            Checkgood = false
         }
 
 
 
-    }
+        if (Checkgood === true) {
+            setThdStep(true)
+            return true
+        }
 
+        setTimeout(() => {
+            setErrorMsg('')
+        }, 2500);
+
+    }
 
     const handleInputChange = (event) => {
         setValueRegister({
@@ -158,7 +228,7 @@ const LoginComponent = ({ envioLogin, setCart }) => {
             {
                 TypeForm
                     ? <>
-                        <form onSubmit={SubmitLoginRequest} className='formLogin' ref={formLogin}>
+                        <form className='formLogin' ref={formLogin}>
                             <input type={'text'} placeholder={'nombre'} name={'name'}></input>
                             <div className="conteinerInputPassword">
                                 <input type={`${VisiblePassword.pass1 ? 'password' : 'text'}`} placeholder={'contraseña'} name={'password'}></input>
@@ -169,7 +239,7 @@ const LoginComponent = ({ envioLogin, setCart }) => {
                             <div className="conteinerErrorLogin">
                                 {ErrorMsg}
                             </div>
-                            <input type={'submit'} className='button' ></input>
+                            <div onClick={() => { SubmitLoginRequest() }} className='button' >Enviar</div>
                         </form>
                     </>
                     : <>
@@ -183,7 +253,7 @@ const LoginComponent = ({ envioLogin, setCart }) => {
 
                                         <div className="conteinerInputPassword">
                                             <input type={`${VisiblePassword.pass2 ? 'password' : 'text'}`} placeholder={'contraseña'}
-                                            name={'password'} onChange={handleInputChange} autoComplete='off' />
+                                                name={'password'} onChange={handleInputChange} autoComplete='off' />
                                             <i className={`fa-solid ${VisiblePassword.pass2 ? 'fa-eye' : 'fa-eye-slash'}`} onClick={() => {
                                                 ChangeStateVisiblePassword('pass2')
                                             }}></i>
@@ -191,68 +261,79 @@ const LoginComponent = ({ envioLogin, setCart }) => {
 
                                         <div className="conteinerInputPassword">
                                             <input type={`${VisiblePassword.pass3 ? 'password' : 'text'}`} placeholder={'Confirmar contrseña'}
-                                            name={'confirmPassword'} onChange={handleInputChange} autoComplete='off' />
+                                                name={'confirmPassword'} onChange={handleInputChange} autoComplete='off' />
                                             <i className={`fa-solid ${VisiblePassword.pass3 ? 'fa-eye' : 'fa-eye-slash'}`} onClick={() => {
                                                 ChangeStateVisiblePassword('pass3')
                                             }}></i>
                                         </div>
 
 
-                                        <div onClick={SubtimFirstRegister} className='button' >Siguiente paso</div>
-                                        <div>{ErrorMsg}</div>
+                                        <div onClick={() => {
+                                            SubtimFirstRegister()
+                                        }} className='button' >Siguiente paso</div>
+                                        <div className="conteinerErrorLogin">
+                                            {ErrorMsg}
+                                        </div>
                                     </form>
                                 </>
-                                : <>
+                                : <> {
+                                    !ThdStep
+                                        ? <>
 
-                                    <form className='formStep2'>
-                                        <div className='rowFormInfo'>
-                                            <div className='columnInfo'>
-                                                <div className='TitleInfo'>Nombre</div>
-                                                <input type={'text'} placeholder={'Nombre'} name={'name'} onChange={handleInputChange} />
-                                            </div>
-                                            <div className='columnInfo'>
-                                                <div className='TitleInfo'>Apellido</div>
-                                                <input type={'text'} placeholder={'Apellido'} name={'lastname'} onChange={handleInputChange} />
-                                            </div>
-                                        </div>
-                                        <div className='rowFormInfo'>
-                                            <div className='columnInfo'>
-                                                <div className='TitleInfo'>E-mail</div>
-                                                <input type={'text'} placeholder={'Email@gmail.com'} name={'email'} onChange={handleInputChange} />
-                                            </div>
-                                            <div className='columnInfo'>
-                                                <div className='TitleInfo '>DNI</div>
-                                                <input type={'text'} placeholder={'99.999.999 - sin puntos'} name={'DNI'} onChange={handleInputChange} />
-                                            </div>
-                                        </div>
-                                        <div className='rowFormInfo'>
-                                            <div className='columnInfo'>
-                                                <div className='TitleInfo'>Telefono</div>
-                                                <input type={'text'} placeholder={'011-570-7123'} name={'phone_number'} onChange={handleInputChange} />
-                                            </div>
-                                            <div className='columnInfo'>
-                                                <div className='TitleInfo'>Fecha de nacimiento</div>
-                                                <input type={'text'} placeholder={'01/01/2001'} name={'birth_date'} onChange={handleInputChange} />
-                                            </div>
-                                        </div>
-
-                                        {Sending
-                                            ? <div className="btnSendPass">
-                                                <div class="wrap">
-                                                    <div class="spinner"></div>
+                                            <form className='formStep2'>
+                                                <div className='rowFormInfo'>
+                                                    <div className='columnInfo'>
+                                                        <div className='TitleInfo'>Nombre</div>
+                                                        <input type={'text'} placeholder={'Nombre'} name={'name'} onChange={handleInputChange} />
+                                                    </div>
+                                                    <div className='columnInfo'>
+                                                        <div className='TitleInfo'>Apellido</div>
+                                                        <input type={'text'} placeholder={'Apellido'} name={'lastname'} onChange={handleInputChange} />
+                                                    </div>
                                                 </div>
+                                                <div className='rowFormInfo'>
+                                                    <div className='columnInfo'>
+                                                        <div className='TitleInfo'>Telefono</div>
+                                                        <input type={'text'} placeholder={'011-570-7123'} name={'phone_number'} onChange={handleInputChange} />
+                                                    </div>
+                                                    <div className='columnInfo'>
+                                                        <div className='TitleInfo '>DNI</div>
+                                                        <input type={'text'} placeholder={'99.999.999 - sin puntos'} name={'DNI'} onChange={handleInputChange} />
+                                                    </div>
+                                                </div>
+                                                <div className='rowFormInfo'>
+
+                                                    <div className='columnInfo'>
+                                                        <div className='TitleInfo'>Fecha de nacimiento</div>
+                                                        <input type={'text'} placeholder={'01/01/2001'} name={'birth_date'} onChange={handleInputChange} />
+                                                    </div>
+                                                    <div className='columnInfo'>
+                                                        <div className='TitleInfo'>Direccion</div>
+                                                        <input type={'text'} placeholder={'Calle y numero'} name={'address'} onChange={handleInputChange} />
+                                                    </div>
+                                                </div>
+
+                                                {Sending
+                                                    ? <div className="btnSendPass">
+                                                        <div class="wrap">
+                                                            <div class="spinner"></div>
+                                                        </div>
+                                                    </div>
+                                                    : <div className="btnSendPass" onClick={() => {
+                                                        SubmitRegisterRequest()
+                                                    }} > Crear la cuenta </div>
+                                                }
+                                                <div className="conteinerErrorLogin">
+                                                    {ErrorMsg}
+                                                </div>
+                                            </form>
+                                        </>
+                                        : <>
+                                            <div className="conteinerErrorLogin">
+                                                {ErrorMsg}
                                             </div>
-                                            : <div className="btnSendPass" onClick={() => {
-                                                setSendig(true)
-                                                // SubmitRegisterRequest()
-                                                setTimeout(() => {
-                                                    setSendig(false)
-                                                }, 1000);
-
-                                            }} > Enviar </div>
-                                        }
-
-                                    </form>
+                                        </>
+                                }
                                 </>
                         }
                     </>

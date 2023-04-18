@@ -4,6 +4,7 @@ import ProductCategoryPage from './pages/productCategory';
 import ProductSubcategoryPage from './pages/productSubcategory';
 import ContactoPage from './pages/contactoPage';
 import UserPage from './pages/User';
+import ConfirmEmail from './pages/confirmEmail';
 import CarritoPage from './pages/carrito';
 import ProductSearch from './pages/productSearch';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -18,7 +19,17 @@ function App() {
   useEffect(() => {
 
     setSearchState(false)
-    const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
+    var LoggedUserJSON = null
+    if (localStorage.getItem("TimeSession") !== null) {
+      if ((Math.round(new Date().getTime() / 1000) - Number(localStorage.getItem("TimeSession"))) > 604800) {
+        window.localStorage.removeItem('LoggedAppUser')
+        window.localStorage.removeItem('TimeSession')
+      } else {
+        LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
+      }
+    } else {
+      window.localStorage.removeItem('LoggedAppUser')
+    }
 
     if (LoggedUserJSON) {
       //get carrito del usuario
@@ -69,6 +80,12 @@ function App() {
             SearchState={SearchState} />} />
 
           <Route path='/user' element={<UserPage
+            ShoppingCart={ShoppingCart}
+            setShoppingCart={setShoppingCart}
+            setSearchState={setSearchState}
+            SearchState={SearchState} />} />
+
+          <Route path='/user/confirm/:token' element={<ConfirmEmail
             ShoppingCart={ShoppingCart}
             setShoppingCart={setShoppingCart}
             setSearchState={setSearchState}

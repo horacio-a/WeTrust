@@ -75,7 +75,6 @@ const CarritoPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
 
         setPreferenceId(response.data.global)
 
-        console.log(response.data.global)
     }
 
 
@@ -137,8 +136,8 @@ const CarritoPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
 
 
                         <div className="BtnSell" onClick={() => {
-                            // pay()
-                            AddPedido()
+                            pay()
+                            // AddPedido()
                         }}>
                             Finalizar Compra
                         </div>

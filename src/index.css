@@ -5,6 +5,36 @@ body {
     font-family: 'Rubik', sans-serif;
 }
 
+body::-webkit-scrollbar {
+    width: 12px;
+    height: 8px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #9b9898;
+    border-radius: 4px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+body::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+}
+
+body::-webkit-scrollbar-track {
+    background: #e1e1e1;
+    border-radius: 4px;
+}
+
+body::-webkit-scrollbar-track:hover,
+body::-webkit-scrollbar-track:active {
+    background: #d4d4d4;
+}
+
+
 .test {
     width: 100%;
     height: 10vh;
@@ -38,7 +68,102 @@ a:visited {
     text-decoration: none;
 }
 
-.BlockEnvio {
+.BlockEnvio.animation.desactive {
+    opacity: 100%;
+    z-index: 1000;
+    width: 100%;
+    height: 5vh;
+    background-color: #23232C;
+    color: #EEEBDD;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.75vh;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
+    animation-name: closeBlockEnvio;
+}
+
+.BlockEnvio.noanimation.desactive {
+    opacity: 0%;
+    display: none;
+}
+
+
+
+
+
+
+@keyframes closeBlockEnvio {
+
+    100% {
+        translate: 0px -100%;
+    }
+
+}
+
+
+.Header.small.animation header {
+    translate: 0px 0px;
+    position: relative;
+    z-index: 10;
+    background-color: #EEEBDD;
+    width: 100%;
+    height: 12.5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation-duration: .5s;
+    animation-fill-mode: forwards;
+    animation-name: closeBlockEnvio;
+}
+
+@keyframes closeBlockEnvio {
+
+    100% {
+        translate: 0px -5vh;
+    }
+
+}
+
+
+.Header.small.animation .backconteiner {
+    height: 12.5vh;
+    transition: height .5s;
+
+}
+
+.Header.small.animation .conteinerMainHeader {
+    height: 12.5vh;
+    transition: height .5s;
+
+}
+
+
+.Header.small.noanimation .backconteiner {
+    height: 12.5vh;
+}
+
+.Header.small.noanimation .conteinerMainHeader {
+    height: 12.5vh;
+}
+
+
+.textBlockEnvio {
+    margin-left: 5%;
+    width: 90%;
+}
+
+.CloseHead {
+    width: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.BlockEnvio.active {
     z-index: 1000;
     width: 100%;
     height: 5vh;
@@ -206,11 +331,99 @@ header .icons .search {
     text-transform: uppercase;
 }
 
-.MarcaHeader {
+
+.Header.big .MarcaHeader {
     z-index: -1;
     position: absolute;
     visibility: hidden;
-    transform: translatey(-100%);
+    translate: 0px -25vh;
+    width: 100%;
+    height: 25vh;
+    background-color: #DCD6BC;
+    transition: all 0.5s;
+    flex-wrap: wrap;
+}
+
+.Header.big .MarcaHeader.active {
+    position: absolute;
+    visibility: visible;
+    translate: 0px 0px;
+    transition: translate 0.5s;
+}
+
+
+
+
+.Header.small .MarcaHeader {
+    z-index: -1;
+    position: absolute;
+    visibility: hidden;
+    translate: 0px -30vh;
+    width: 100%;
+    height: 25vh;
+    background-color: #DCD6BC;
+    transition: all 0.5s;
+    flex-wrap: wrap;
+}
+
+.Header.small .MarcaHeader.active {
+    position: absolute;
+    visibility: visible;
+    translate: 0px -5vh;
+    transition: translate 0.5s;
+}
+
+
+.Header.noanimation.small .MarcaHeader {
+    z-index: -1;
+    position: absolute;
+    visibility: hidden;
+    translate: 0px -30vh;
+    width: 100%;
+    height: 25vh;
+    background-color: #DCD6BC;
+    transition: all 0.5s;
+    flex-wrap: wrap;
+}
+
+.Header.noanimation.small .MarcaHeader.active {
+    position: absolute;
+    visibility: visible;
+    translate: 0px 0px;
+    transition: translate 0.5s;
+}
+
+
+
+
+.Header.big .CategoriaHeader {
+    z-index: -1;
+    position: absolute;
+    visibility: hidden;
+    translate: 0px -25vh;
+    width: 100%;
+    height: 25vh;
+    background-color: #DCD6BC;
+    transition: all 0.5s;
+    flex-wrap: wrap;
+}
+
+
+.Header.big .CategoriaHeader.active {
+    position: absolute;
+    visibility: visible;
+    translate: 0px 0px;
+    transition: translate 0.5s;
+}
+
+
+
+
+.Header.small .CategoriaHeader {
+    z-index: -1;
+    position: absolute;
+    visibility: hidden;
+    translate: 0px -30vh;
     width: 100%;
     height: 25vh;
     background-color: #DCD6BC;
@@ -220,35 +433,40 @@ header .icons .search {
 
 
 
-.MarcaHeader.active {
+.Header.small .CategoriaHeader.active {
     position: absolute;
     visibility: visible;
-    transform: translatey(-0%);
-
-
+    translate: 0px -5vh;
+    transition: translate 0.5s;
 }
 
-.CategoriaHeader {
-    z-index: -1;
 
+
+
+.Header.noanimation.small .CategoriaHeader {
+    z-index: -1;
     position: absolute;
     visibility: hidden;
-    transform: translatey(-100%);
+    translate: 0px -30vh;
     width: 100%;
     height: 25vh;
     background-color: #DCD6BC;
     transition: all 0.5s;
+    flex-wrap: wrap;
 }
 
 
 
-.CategoriaHeader.active {
+.Header.noanimation.small .CategoriaHeader.active {
     position: absolute;
     visibility: visible;
-    transform: translatey(-0%);
-
-
+    translate: 0px 0px;
+    transition: translate 0.5s;
 }
+
+
+
+
 
 .conteinerimg {
     width: 100%;
@@ -1971,7 +2189,7 @@ a .fa-magnifying-glass {
 
 
 .mainProductsTitle {
-    width: 100vw;
+    width: 100%;
     height: 35vh;
     position: relative;
 
@@ -2111,6 +2329,11 @@ a .fa-magnifying-glass {
 
 .txtMainInfo {
     opacity: 75%;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
 }
 
 
@@ -2304,4 +2527,92 @@ form.formStep2 {
     background-color: #EEEBDD;
     border: none;
     border-radius: 5px;
-}  
+}
+
+
+.mainConfirm{
+    width: 100%;
+    height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerConfirm{
+    width: 50%;
+    height: 50%;
+    border-radius: 10px;
+    background-color: #DCD6BC;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.TxtConfirmacion{
+    color: #3E3733;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+.TxtConfirmacion h1{ 
+    color: #3E3733;
+    text-align: center;
+    margin-top: 10%;
+    margin-bottom: 5%;
+}
+
+
+
+
+.TxtConfirmacion .txt{ 
+
+    font-size: 2.25vh;
+    color: #3E3733;
+    text-align: center;
+}
+
+.btnReenviar{
+    margin-top: 5%;
+    color: #3E3733;
+    border-radius: 5px;
+    border: solid 3px #3E3733;
+    width: 20%;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all .1s;
+}
+
+.btnReenviar:hover{
+    color: #DCD6BC;
+    background-color: #3E3733;
+}
+
+.TxtConfirmacion2{
+    width: 30%;
+    height: 30%;
+    border-radius: 10px;
+    background-color: #DCD6BC;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.TxtConfirmacion2 h1{
+    color: #3E3733;
+    margin-top: 7.5%;
+    margin-bottom: 5%;
+}
+
+.TxtConfirmacion2 .txt{
+    color: #3E3733;
+    font-size: 2vh;
+}

@@ -16,7 +16,6 @@ const Header = ({ setSearchState, SearchState }) => {
     useEffect(() => {
         const cargarMarcar = async () => {
             const response = await axios.get(`${process.env.REACT_APP_PAGE}/api/marcas/token/${process.env.REACT_APP_API_KEY}`);
-            console.log(response)
             setMarcas(response.data)
         }
         cargarMarcar()
@@ -44,13 +43,28 @@ const Header = ({ setSearchState, SearchState }) => {
         }
     }
 
+    const [state, setstate] = useState(true)
+    const [animation, setanimation] = useState(true)
+    const closeHead = () => {
+        setstate(false)
+        localStorage.setItem("mi_super_anuncio", Math.round(new Date().getTime() / 1000));
+    }
+
+    useEffect(() => {
+        if (localStorage.getItem("mi_super_anuncio") !== null) {
+            if ((Math.round(new Date().getTime() / 1000) - Number(localStorage.getItem("mi_super_anuncio"))) < 86400 ) {
+                setstate(false)
+                setanimation(false)
+            }
+        }
+    }, [])
 
 
     return (
         <>
-            <div className={`Header  ${SearchState ? 'Deactivated' : 'Active'}`}>
+            <div className={`Header  ${SearchState ? 'Deactivated' : 'Active'}  ${animation ? 'animation' : 'noanimation '} ${state ? 'big' : 'small'}`}>
                 <div className="conteinerMainHeader">
-                    <EnviosGratis />
+                    <EnviosGratis closeHead={closeHead} state={state} animation={animation} />
 
                     <header>
                         <div className="conteiner-links">
@@ -103,11 +117,11 @@ const Header = ({ setSearchState, SearchState }) => {
                                 {
                                     marcas.map(item => {
                                         return (
-                                        <Link to={`/marca/${item}`} className="categorioHeader" onClick={HeaderMarcaFuntion}>
-                                            <i className="fa-solid fa-caret-right"></i>
-                                            <div>{item}</div>
-                                        </Link>)
-                                    })      
+                                            <Link to={`/marca/${item}`} className="categorioHeader" onClick={HeaderMarcaFuntion}>
+                                                <i className="fa-solid fa-caret-right"></i>
+                                                <div>{item}</div>
+                                            </Link>)
+                                    })
                                 }
                             </div>
 
