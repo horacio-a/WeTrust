@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useRef, useState } from "react";
 
 const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
-    const [typeForm, setTypeForm] = useState('')
+    const [FormType, setFormType] = useState()
     const [editar, setEditar] = useState(false)
     const form = useRef();
     const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
@@ -16,7 +16,8 @@ const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
         city: '',
         cod_postal: '',
         email: '',
-        phone_num: ''
+        phone_num: '',
+        address: ''
     })
 
     const handleInputChange = (event) => {
@@ -37,7 +38,7 @@ const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
         form.current.cod_postal.value = ''
         form.current.email.value = ''
         form.current.phone_num.value = ''
-        
+
     }
 
     const setValueForm = (type) => {
@@ -82,9 +83,11 @@ const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
         }
     }
 
-    const sendForm = () => {
+    const sendForm = async () => {
         cleanForm()
         setEditar(false)
+        console.log(FormType)
+        
         var obj = JSON.stringify({
             data: {
                 name: datos.name,
@@ -95,13 +98,14 @@ const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
                 cod_postal: datos.cod_postal,
                 email: datos.email,
                 phone_num: datos.phone_num,
+                address: datos.address
             },
             info: {
-                type: typeForm,
-                user: LoggedUserJSON.user
+                type: FormType,
+                user: LoggedUserJSON.user,
             }
         })
-        
+
         axios.post(`${process.env.REACT_APP_PAGE}/usuarios/edit/direccion/token/${process.env.REACT_APP_API_KEY}`, { obj }, {
             headers: {
                 'Content-Type': 'application/json'
@@ -130,9 +134,9 @@ const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
                             Dirección de facturación
                         </div>
                         <div className="editarBtn" onClick={() => {
+                            setFormType('Billing')
                             setEditar(true)
                             setValueForm('Billing')
-                            setTypeForm('Billing')
                             setTitulo('Dirección de facturación ')
                         }}>Editar</div>                    </div>
                     {
@@ -163,14 +167,10 @@ const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
                             Dirección de envió
                         </div>
                         <div className="editarBtn" onClick={() => {
-
                             setEditar(true)
                             setValueForm('Shipping')
-
-                            setTypeForm('Shipping')
+                            setFormType('Shipping')
                             setTitulo('Dirección de envio ')
-
-
                         }}>Editar</div>
                     </div>
                     {
@@ -250,7 +250,10 @@ const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
                             <div className="labelForm" >Teléfono</div>
                             <input type={'text'} name={'phone_num'} autoComplete='off' onChange={handleInputChange} />
                         </div>
-
+                        <div className="unitrow">
+                            <div className="labelForm" >Dirrecion</div>
+                            <input type={'text'} name={'address'} autoComplete='off' onChange={handleInputChange} />
+                        </div>
                     </div>
                     <div className="editarDireccion" onClick={() => {
                         updateUser()
