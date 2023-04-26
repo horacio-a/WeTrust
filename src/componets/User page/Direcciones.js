@@ -6,7 +6,7 @@ const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
     const [editar, setEditar] = useState(false)
     const form = useRef();
     const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
-
+    console.log(LoggedUserJSON)
 
     const [datos, setDatos] = useState({
         name: '',
@@ -38,56 +38,62 @@ const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
         form.current.cod_postal.value = ''
         form.current.email.value = ''
         form.current.phone_num.value = ''
-
+        form.current.address.value = ''
     }
 
     const setValueForm = (type) => {
         if (type === 'Billing') {
-            form.current.name.value = LoggedUserJSON.billingaddress.name
-            form.current.lastname.value = LoggedUserJSON.billingaddress.lastname
-            form.current.country.value = LoggedUserJSON.billingaddress.country
-            form.current.region.value = LoggedUserJSON.billingaddress.region
-            form.current.city.value = LoggedUserJSON.billingaddress.city
-            form.current.cod_postal.value = LoggedUserJSON.billingaddress.cod_postal
-            form.current.email.value = LoggedUserJSON.billingaddress.email
-            form.current.phone_num.value = LoggedUserJSON.billingaddress.phone_num
+            form.current.name.value = LoggedUserJSON.Billingaddress.name
+            form.current.lastname.value = LoggedUserJSON.Billingaddress.lastname
+            form.current.country.value = LoggedUserJSON.Billingaddress.country
+            form.current.region.value = LoggedUserJSON.Billingaddress.region
+            form.current.city.value = LoggedUserJSON.Billingaddress.city
+            form.current.cod_postal.value = LoggedUserJSON.Billingaddress.cod_postal
+            form.current.email.value = LoggedUserJSON.Billingaddress.email
+            form.current.phone_num.value = LoggedUserJSON.Billingaddress.phone_num
+            form.current.address.value = LoggedUserJSON.Billingaddress.address
+
             setDatos({
-                name: LoggedUserJSON.billingaddress.name,
-                lastname: LoggedUserJSON.billingaddress.lastname,
-                country: LoggedUserJSON.billingaddress.country,
-                region: LoggedUserJSON.billingaddress.region,
-                city: LoggedUserJSON.billingaddress.city,
-                cod_postal: LoggedUserJSON.billingaddress.cod_postal,
-                email: LoggedUserJSON.billingaddress.email,
-                phone_num: LoggedUserJSON.billingaddress.phone_num
+                name: LoggedUserJSON.Billingaddress.name,
+                lastname: LoggedUserJSON.Billingaddress.lastname,
+                country: LoggedUserJSON.Billingaddress.country,
+                region: LoggedUserJSON.Billingaddress.region,
+                city: LoggedUserJSON.Billingaddress.city,
+                cod_postal: LoggedUserJSON.Billingaddress.cod_postal,
+                email: LoggedUserJSON.Billingaddress.email,
+                phone_num: LoggedUserJSON.Billingaddress.phone_num,
+                address: LoggedUserJSON.Billingaddress.address
             })
         } else if (type === 'Shipping') {
-            form.current.name.value = LoggedUserJSON.shippingaddress.name
-            form.current.lastname.value = LoggedUserJSON.shippingaddress.lastname
-            form.current.country.value = LoggedUserJSON.shippingaddress.country
-            form.current.region.value = LoggedUserJSON.shippingaddress.region
-            form.current.city.value = LoggedUserJSON.shippingaddress.city
-            form.current.cod_postal.value = LoggedUserJSON.shippingaddress.cod_postal
-            form.current.email.value = LoggedUserJSON.shippingaddress.email
-            form.current.phone_num.value = LoggedUserJSON.shippingaddress.phone_num
+            form.current.name.value = LoggedUserJSON.Shippingaddress.name
+            form.current.lastname.value = LoggedUserJSON.Shippingaddress.lastname
+            form.current.country.value = LoggedUserJSON.Shippingaddress.country
+            form.current.region.value = LoggedUserJSON.Shippingaddress.region
+            form.current.city.value = LoggedUserJSON.Shippingaddress.city
+            form.current.cod_postal.value = LoggedUserJSON.Shippingaddress.cod_postal
+            form.current.email.value = LoggedUserJSON.Shippingaddress.email
+            form.current.phone_num.value = LoggedUserJSON.Shippingaddress.phone_num
+            form.current.address.value = LoggedUserJSON.Shippingaddress.address
+
             setDatos({
-                name: LoggedUserJSON.shippingaddress.name,
-                lastname: LoggedUserJSON.shippingaddress.lastname,
-                country: LoggedUserJSON.shippingaddress.country,
-                region: LoggedUserJSON.shippingaddress.region,
-                city: LoggedUserJSON.shippingaddress.city,
-                cod_postal: LoggedUserJSON.shippingaddress.cod_postal,
-                email: LoggedUserJSON.shippingaddress.email,
-                phone_num: LoggedUserJSON.shippingaddress.phone_num
+                name: LoggedUserJSON.Shippingaddress.name,
+                lastname: LoggedUserJSON.Shippingaddress.lastname,
+                country: LoggedUserJSON.Shippingaddress.country,
+                region: LoggedUserJSON.Shippingaddress.region,
+                city: LoggedUserJSON.Shippingaddress.city,
+                cod_postal: LoggedUserJSON.Shippingaddress.cod_postal,
+                email: LoggedUserJSON.Shippingaddress.email,
+                phone_num: LoggedUserJSON.Shippingaddress.phone_num,
+                address: LoggedUserJSON.Shippingaddress.address
             })
         }
     }
 
+
     const sendForm = async () => {
         cleanForm()
         setEditar(false)
-        console.log(FormType)
-        
+
         var obj = JSON.stringify({
             data: {
                 name: datos.name,
@@ -102,26 +108,25 @@ const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
             },
             info: {
                 type: FormType,
-                user: LoggedUserJSON.user,
+                user: LoggedUserJSON.GeneralInfo.user,
             }
         })
 
-        axios.post(`${process.env.REACT_APP_PAGE}/usuarios/edit/direccion/token/${process.env.REACT_APP_API_KEY}`, { obj }, {
+        const response = await axios.post(`${process.env.REACT_APP_PAGE}/usuarios/edit/direccion/token/${process.env.REACT_APP_API_KEY}`, { obj }, {
             headers: {
                 'Content-Type': 'application/json'
             }
         })
+
+        window.localStorage.setItem(
+            'LoggedAppUser', JSON.stringify(response.data)
+        );
+        window.location.reload()
+
+
     }
 
-    const updateUser = async () => {
-        const response = await axios.get(`${process.env.REACT_APP_PAGE}/usuarios/login/user/${LoggedUserJSON.user}/password/admin/token/${process.env.REACT_APP_API_KEY}`)
-        if (response.data[0].authenticated === true) {
-            window.localStorage.setItem(
-                'LoggedAppUser', JSON.stringify(response.data[1])
-            )
-        }
-        window.location.replace('');
-    }
+
 
 
     return (
@@ -167,9 +172,9 @@ const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
                             Dirección de envió
                         </div>
                         <div className="editarBtn" onClick={() => {
+                            setFormType('Shipping')
                             setEditar(true)
                             setValueForm('Shipping')
-                            setFormType('Shipping')
                             setTitulo('Dirección de envio ')
                         }}>Editar</div>
                     </div>
@@ -256,9 +261,7 @@ const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
                         </div>
                     </div>
                     <div className="editarDireccion" onClick={() => {
-                        updateUser()
                         sendForm()
-
                     }}>Guardar</div>
                 </form>
 

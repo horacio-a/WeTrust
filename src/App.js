@@ -7,6 +7,8 @@ import UserPage from './pages/User';
 import ConfirmEmail from './pages/confirmEmail';
 import CarritoPage from './pages/carrito';
 import ProductSearch from './pages/productSearch';
+import ResetPassword from './pages/resetPass';
+import ChangePass from './pages/changePass';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -34,7 +36,7 @@ function App() {
     if (LoggedUserJSON) {
       //get carrito del usuario
       const getcart = async () => {
-        const cart = await (await axios.get(`${process.env.REACT_APP_PAGE}/cart/getInfo/user/${LoggedUserJSON.user}/token/${process.env.REACT_APP_API_KEY}`)).data
+        const cart = await (await axios.get(`${process.env.REACT_APP_PAGE}/cart/getInfo/user/${LoggedUserJSON.GeneralInfo.user}/token/${process.env.REACT_APP_API_KEY}`)).data
         setShoppingCart(cart)
       }
       getcart()
@@ -88,6 +90,14 @@ function App() {
           <Route path='/user/confirm/:token' element={<ConfirmEmail
             ShoppingCart={ShoppingCart}
             setShoppingCart={setShoppingCart}
+            setSearchState={setSearchState}
+            SearchState={SearchState} />} />
+
+          <Route path='/user/password/reset' element={<ResetPassword
+            setSearchState={setSearchState}
+            SearchState={SearchState} />} />
+
+          <Route path='/user/password/reset/:token/:user' element={<ChangePass
             setSearchState={setSearchState}
             SearchState={SearchState} />} />
 

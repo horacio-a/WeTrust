@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import emailjs from 'emailjs-com'
+import { Link } from "react-router-dom";
 
 
 const LoginComponent = ({ envioLogin, setCart }) => {
@@ -51,7 +52,7 @@ const LoginComponent = ({ envioLogin, setCart }) => {
             password: formLogin.current.password.value
         })
 
-        const response = await axios.post(`${process.env.REACT_APP_PAGE}/usuarios/login/token/${process.env.REACT_APP_API_KEY}`, {obj})
+        const response = await axios.post(`${process.env.REACT_APP_PAGE}/usuarios/login/token/${process.env.REACT_APP_API_KEY}`, { obj })
         console.log(response)
 
         if (response.data[0].authenticated === true) {
@@ -101,7 +102,7 @@ const LoginComponent = ({ envioLogin, setCart }) => {
     }
 
 
-    const SubmitRegisterRequest = async (e) => {
+    const SubmitRegisterRequest = async () => {
 
         CheckRegisterData()
         if (CheckRegisterData() === true) {
@@ -118,6 +119,7 @@ const LoginComponent = ({ envioLogin, setCart }) => {
                     to_name: ValueRegister.name,
                     to_email: ValueRegister.email,
                     authCod: response.data.authCod,
+                    Email_data:'¡Gracias por registrarse en WeTrust! Estamos encantados de tenerle a bordo y estaremos encantados de ayudarte a vestirte como siempre soñaste. Por favor, confirme su correo electrónico ' +  ValueRegister.email + ' haciendo clic en el botón de abajo.'
                 }
                 emailjs.send(
                     process.env.REACT_APP_SERVICE,
@@ -126,7 +128,6 @@ const LoginComponent = ({ envioLogin, setCart }) => {
                     process.env.REACT_APP_APIPUBLIC
                 ).then((result) => {
                     console.log(result.text);
-
                 });
                 window.localStorage.setItem('TemporalEmail', ValueRegister.email)
                 window.location.replace('/user/confirm/add')
@@ -236,6 +237,9 @@ const LoginComponent = ({ envioLogin, setCart }) => {
                                     ChangeStateVisiblePassword('pass1')
                                 }}></i>
                             </div>
+                            <div className="Passforget">
+                                <Link to={'/user/password/reset'} className="PassforgetTxt">¿Olvidaste tu contraseña?</Link>
+                            </div>
                             <div className="conteinerErrorLogin">
                                 {ErrorMsg}
                             </div>
@@ -247,7 +251,7 @@ const LoginComponent = ({ envioLogin, setCart }) => {
                             !SndStep
                                 ? <>
                                     <form className='formLogin' ref={formRegister}>
-                                        <input type={'text'} placeholder={'nombre'} name={'user'} onChange={handleInputChange}></input>
+                                        <input type={'text'} placeholder={'nombre de usuario '} name={'user'} onChange={handleInputChange}></input>
                                         <input type={'email'} placeholder={'email'} name={'email'} onChange={handleInputChange}></input>
                                         <input type={'email'} placeholder={'Confirmar email'} name={'confirmEmail'} onChange={handleInputChange} />
 

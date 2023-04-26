@@ -22,10 +22,11 @@ const ConfirmEmail = ({ ShoppingCart, setShoppingCart, setSearchState, SearchSta
             window.localStorage.setItem('EmailTimeSend', Math.round(new Date().getTime() / 1000))
             console.log(dataToSend.data)
             let templateParams = {
+                Subject: 'Confirmar Email WeTrust',
                 to_name: dataToSend.data.user,
                 to_email: email,
                 authCod: dataToSend.data.authCod,
-                confirm_url: 'http://localhost:6969/user/confirm/' + dataToSend.data.authCod
+                confirm_url: process.env.REACT_APP_FRONTPAGE+'/user/confirm/' + dataToSend.data.authCod
             }
             emailjs.send(
                 process.env.REACT_APP_SERVICE,

@@ -20,21 +20,21 @@ const EditPassword = ({ setTitulo }) => {
         pass3: true
     })
     const [datos, setDatos] = useState({
-        name: LoggedUserJSON.name,
-        lastname: LoggedUserJSON.lastname,
-        email: LoggedUserJSON.email,
-        DNI: LoggedUserJSON.DNI,
-        birth_date: LoggedUserJSON.birth_date,
-        phone_number: LoggedUserJSON.phone_number
+        name: LoggedUserJSON.GeneralInfo.name,
+        lastname: LoggedUserJSON.GeneralInfo.lastname,
+        email: LoggedUserJSON.GeneralInfo.email,
+        DNI: LoggedUserJSON.GeneralInfo.DNI,
+        birth_date: LoggedUserJSON.GeneralInfo.birth_date,
+        phone_number: LoggedUserJSON.GeneralInfo.phone_number
     })
 
     const setValueForm = () => {
-        form.current.name.value = LoggedUserJSON.name
-        form.current.lastname.value = LoggedUserJSON.lastname
-        form.current.email.value = LoggedUserJSON.email
-        form.current.DNI.value = LoggedUserJSON.DNI
-        form.current.birth_date.value = LoggedUserJSON.birth_date
-        form.current.phone_number.value = LoggedUserJSON.phone_number
+        form.current.name.value = LoggedUserJSON.GeneralInfo.name
+        form.current.lastname.value = LoggedUserJSON.GeneralInfo.lastname
+        form.current.email.value = LoggedUserJSON.GeneralInfo.email
+        form.current.DNI.value = LoggedUserJSON.GeneralInfo.DNI
+        form.current.birth_date.value = LoggedUserJSON.GeneralInfo.birth_date
+        form.current.phone_number.value = LoggedUserJSON.GeneralInfo.phone_number
 
     }
 
@@ -45,7 +45,7 @@ const EditPassword = ({ setTitulo }) => {
         })
     }
 
-    const sendFormInfo = () => {
+    const sendFormInfo = async () => {
         var obj = JSON.stringify(
             {
                 data: {
@@ -57,15 +57,19 @@ const EditPassword = ({ setTitulo }) => {
                     phone_number: datos.phone_number,
                 },
                 info: {
-                    user: LoggedUserJSON.user
+                    user: LoggedUserJSON.GeneralInfo.user
                 }
             }
         )
-        axios.post(`${process.env.REACT_APP_PAGE}/usuarios/edit/infopersonal/token/${process.env.REACT_APP_API_KEY}`, { obj }, {
+        const response = await axios.post(`${process.env.REACT_APP_PAGE}/usuarios/edit/infopersonal/token/${process.env.REACT_APP_API_KEY}`, { obj }, {
             headers: {
                 'Content-Type': 'application/json'
             }
         })
+        window.localStorage.setItem(
+            'LoggedAppUser', JSON.stringify(response.data)
+        );
+        window.location.reload()
     }
 
 
@@ -78,7 +82,7 @@ const EditPassword = ({ setTitulo }) => {
                     newPass2: Password.newPass2
                 },
                 info: {
-                    user: LoggedUserJSON.user
+                    user: LoggedUserJSON.GeneralInfo.user
                 }
             }
         )
@@ -115,7 +119,6 @@ const EditPassword = ({ setTitulo }) => {
 
 
     const ChangeStateVisiblePassword = (name) => {
-        console.log(VisiblePassword[name])
         if (VisiblePassword[name] === true) {
             setVisiblePassword({
                 ...VisiblePassword,
@@ -131,7 +134,7 @@ const EditPassword = ({ setTitulo }) => {
 
 
     const updateUser = async () => {
-        const response = await axios.get(`${process.env.REACT_APP_PAGE}/usuarios/login/user/${LoggedUserJSON.user}/password/admin/token/${process.env.REACT_APP_API_KEY}`)
+        const response = await axios.get(`${process.env.REACT_APP_PAGE}/usuarios/login/user/${LoggedUserJSON.GeneralInfo.user}/password/admin/token/${process.env.REACT_APP_API_KEY}`)
         console.log(response.data[0])
         if (response.data[0].authenticated === true) {
             window.localStorage.setItem(
@@ -159,28 +162,28 @@ const EditPassword = ({ setTitulo }) => {
                 <div className='MainInfo'>
                     <div className='unitMainInfo'>
                         <div className='TituloMainInfo'>Nombre</div>
-                        <div className='txtMainInfo'>{LoggedUserJSON.name}</div>
+                        <div className='txtMainInfo'>{LoggedUserJSON.GeneralInfo.name}</div>
                     </div>
                     <div className='unitMainInfo'>
                         <div className='TituloMainInfo'>Apellido</div>
-                        <div className='txtMainInfo'>{LoggedUserJSON.lastname}</div>
+                        <div className='txtMainInfo'>{LoggedUserJSON.GeneralInfo.lastname}</div>
                     </div>
                     <div className='unitMainInfo'>
                         <div className='TituloMainInfo'>E-mail</div>
-                        <div className='txtMainInfo'>{LoggedUserJSON.email}</div>
+                        <div className='txtMainInfo'>{LoggedUserJSON.GeneralInfo.email}</div>
                     </div>
 
                     <div className='unitMainInfo'>
                         <div className='TituloMainInfo'>DNI</div>
-                        <div className='txtMainInfo'>{LoggedUserJSON.DNI}</div>
+                        <div className='txtMainInfo'>{LoggedUserJSON.GeneralInfo.DNI}</div>
                     </div>
                     <div className='unitMainInfo'>
                         <div className='TituloMainInfo'>Numero de telefono</div>
-                        <div className='txtMainInfo'>{LoggedUserJSON.phone_number}</div>
+                        <div className='txtMainInfo'>{LoggedUserJSON.GeneralInfo.phone_number}</div>
                     </div>
                     <div className='unitMainInfo'>
                         <div className='TituloMainInfo'>Fecha de nacimiento</div>
-                        <div className='txtMainInfo'>{LoggedUserJSON.birth_date}</div>
+                        <div className='txtMainInfo'>{LoggedUserJSON.GeneralInfo.birth_date}</div>
                     </div>
 
                 </div>
@@ -292,6 +295,7 @@ const EditPassword = ({ setTitulo }) => {
                             }}></i>
                         </div>
                     </div>
+
                     <div className='rowPassword'>
                         <div className='titleFormPass'>Confirmar la contraseña</div>
                         <div className='conteinerInput'>

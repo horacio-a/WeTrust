@@ -52,15 +52,13 @@ const UserPanel = () => {
         }
         const getAdrres = async () => {
             const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
-            console.log(LoggedUserJSON)
-            if (LoggedUserJSON.billingaddress) {
-                setBillingaddress(LoggedUserJSON.billingaddress)
+            if (LoggedUserJSON.Billingaddress) {
+                setBillingaddress(LoggedUserJSON.Billingaddress)
             } else {
                 console.log('none')
             }
-            if (LoggedUserJSON.shippingaddress) {
-                setShippingaddress(LoggedUserJSON.shippingaddress)
-
+            if (LoggedUserJSON.Shippingaddress) {
+                setShippingaddress(LoggedUserJSON.Shippingaddress)
             } else {
                 console.log('none')
             }
@@ -69,7 +67,7 @@ const UserPanel = () => {
             const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
 
             setLoadingPedidos(true)
-            const response = await axios.get(`${process.env.REACT_APP_PAGE}/pedidos/user/${LoggedUserJSON.user}/token/${process.env.REACT_APP_API_KEY}`)
+            const response = await axios.get(`${process.env.REACT_APP_PAGE}/pedidos/user/${LoggedUserJSON.GeneralInfo.user}/token/${process.env.REACT_APP_API_KEY}`)
             console.log(response.data)
             setDataPedidos(response.data)
             setLoadingPedidos(false)

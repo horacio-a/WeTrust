@@ -40,15 +40,14 @@ const CarritoPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
     const pay = async () => {
         const user = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
         let datos = JSON.stringify({
-            name: user.name,
-            surname: user.lastname,
-            email: user.email,
+            name: user.GeneralInfo.name,
+            surname: user.GeneralInfo.lastname,
+            email: user.GeneralInfo.email,
             area_code: '0',
-            number: parseInt(user.phone_number),
-            street_name: user.billingaddress.address,
+            number: parseInt(user.GeneralInfo.phone_number),
+            street_name: user.Billingaddress.address,
             street_number: 135,
-
-            zip_code: user.billingaddress.cod_postal
+            zip_code: user.Billingaddress.cod_postal
         })
 
         let items = []

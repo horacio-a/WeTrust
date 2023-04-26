@@ -1295,6 +1295,30 @@ main.mainCart {
     background-color: #DCD6BC;
 }
 
+
+
+.Passforget{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5%;
+    margin-bottom: 2.5%;
+    font-size: 1.75vh;
+    font-weight: 100;
+}
+.PassforgetTxt{
+    opacity: 75%    ;
+    color: #EEEBDD;
+
+
+}
+.PassforgetTxt:hover{
+    opacity: 100%;
+    cursor: pointer;
+
+}
+
 .conteinerErrorLogin {
     width: 100%;
     display: flex;
@@ -2616,3 +2640,133 @@ form.formStep2 {
     color: #3E3733;
     font-size: 2vh;
 }
+
+
+.mainResetPass{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.continerImgResetpass{
+    z-index: 1000;
+    position: fixed;
+    width: 100%;
+    height: 12.5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.continerImgResetpass img{
+    width: auto;
+    height: 75%;
+    cursor: pointer;
+}
+
+
+.continerResetpass{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 35%;
+    background-color: #EEEBDD;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputResetPass {
+    margin-top: 7.5%;
+    color: #3E3733;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.75vh;
+    width: 60%;
+    height: 7.5%;
+    padding: 1%;
+    margin-bottom: 2.5%;
+    border: #3E3733 2px solid;
+    background-color: #EEEBDD;
+}
+
+.inputResetPass:focus {
+    outline: none;
+}
+
+
+.inputResetPass::placeholder {
+    text-transform: capitalize;
+    color: #3E3733;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.75vh;
+    text-align: center;
+}
+
+
+.buttonResetpass{
+    cursor: pointer;
+    color: #EEEBDD;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 12.5%;
+    background-color: #23232C;
+}
+
+
+.buttonResetpass:hover{
+    background-color: #292948;
+
+}
+
+
+
+.titleResetPass{
+    color: #3E3733;
+    font-size: 2.75vh;
+    font-weight: 500;
+    margin: 3.5vh;
+
+}
+
+.continerFormPass{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 55%;
+}
+
+
+.continerResetpassMsg{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 35%;
+    background-color: #EEEBDD;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.continerResetpassMsg .titleResetPass{
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+.continerResetpassMsg .buttonResetpass{
+    margin-top: 10%;
+}
+
