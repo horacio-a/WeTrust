@@ -114,7 +114,8 @@ const UserPanel = () => {
                                         <div> No hay ningún pedido </div>
                                         <Link className="Btnvolver" to={'/'} >Ir a comprar</Link>
                                     </div>
-                                    : (dataPedidos.map(item => <Pedidos key={item.PedidoData.num_order} data={item} />)))
+                                     : <></>)
+                                     // (dataPedidos.map(item => <Pedidos key={item.PedidoData.num_order} data={item} />)))
                         }
                     </div>
 

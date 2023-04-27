@@ -66,7 +66,7 @@ const CarritoPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
         let products = items.join('$/$')
         console.log(products)
 
-        const response = await axios.post(`http://localhost:3001/pay`, { datos, products }, {
+        const response = await axios.post(`${process.env.REACT_APP_PAGE}/pay`, { datos, products }, {
             headers: {
                 'Content-Type': 'application/json'
             }
