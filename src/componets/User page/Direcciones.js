@@ -6,7 +6,6 @@ const Direcciones = ({ Billingaddress, Shippingaddress, setTitulo }) => {
     const [editar, setEditar] = useState(false)
     const form = useRef();
     const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
-    console.log(LoggedUserJSON)
 
     const [datos, setDatos] = useState({
         name: '',

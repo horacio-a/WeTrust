@@ -68,7 +68,6 @@ const UserPanel = () => {
 
             setLoadingPedidos(true)
             const response = await axios.get(`${process.env.REACT_APP_PAGE}/pedidos/user/${LoggedUserJSON.GeneralInfo.user}/token/${process.env.REACT_APP_API_KEY}`)
-            console.log(response.data)
             setDataPedidos(response.data)
             setLoadingPedidos(false)
 
@@ -114,8 +113,8 @@ const UserPanel = () => {
                                         <div> No hay ningún pedido </div>
                                         <Link className="Btnvolver" to={'/'} >Ir a comprar</Link>
                                     </div>
-                                     : <></>)
-                                     // (dataPedidos.map(item => <Pedidos key={item.PedidoData.num_order} data={item} />)))
+                                    :
+                                    (dataPedidos.map(item => <Pedidos key={item.PedidoData.num_order} data={item} />)))
                         }
                     </div>
 
