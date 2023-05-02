@@ -1,9 +1,9 @@
 import React from "react";
-import PedidoPorProducto from "../pedidosxProducto";
+import PedidoPorProducto from "./pedidosxProducto";
 
 const Pedidos = ({ data }) => {
     let { PedidoData, productos } = data
-    const total = PedidoData.total.toLocaleString('en-US', {style: 'currency',currency: 'USD', minimumFractionDigits: 2})
+    const total = PedidoData.total.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 })
     return (
 
         <>
@@ -23,10 +23,10 @@ const Pedidos = ({ data }) => {
                         {PedidoData.state}
                     </div>
                 </div>
-                {
-                    productos.map( item => <PedidoPorProducto key={item.id} product={item}/> )
-                }
-                
+                {/* {
+                    productos.map(item => <PedidoPorProducto key={item.id} product={item} />)
+                } */}
+
             </div>
         </>
 
