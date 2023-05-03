@@ -3,7 +3,7 @@ import PedidoPorProducto from "./pedidosxProducto";
 
 const Pedidos = ({ data }) => {
     let { PedidoData, productos } = data
-    console.log(productos, PedidoData)
+    console.log(data, 'data')
 
     const total = PedidoData.total.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 })
     return (

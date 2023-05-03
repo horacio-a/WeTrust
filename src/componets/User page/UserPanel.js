@@ -68,7 +68,7 @@ const UserPanel = () => {
 
             setLoadingPedidos(true)
             const response = await axios.get(`${process.env.REACT_APP_PAGE}/pedidos/user/${LoggedUserJSON.GeneralInfo.user}/token/${process.env.REACT_APP_API_KEY}`)
-            console.log(response.data)
+            console.log(response.data, 'response.data')
 
             setDataPedidos(response.data)
             setLoadingPedidos(false)
