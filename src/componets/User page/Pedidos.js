@@ -3,11 +3,13 @@ import PedidoPorProducto from "./pedidosxProducto";
 
 const Pedidos = ({ data }) => {
     let { PedidoData, productos } = data
+    console.log(productos, PedidoData)
+
     const total = PedidoData.total.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 })
     return (
 
         <>
-            <div className="conteinerPedidos">
+            {/* <div className="conteinerPedidos">
                 <div className="tituloPedidos">
                     <div className="unitTituloPedidos left">
                         <div>
@@ -23,11 +25,11 @@ const Pedidos = ({ data }) => {
                         {PedidoData.state}
                     </div>
                 </div>
-                {/* {
+                {
                     productos.map(item => <PedidoPorProducto key={item.id} product={item} />)
-                } */}
+                }
 
-            </div>
+            </div> */}
         </>
 
 
