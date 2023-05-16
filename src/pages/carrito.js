@@ -108,7 +108,7 @@ const CarritoPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
                             <div className="bntDeleteAll" onClick={async () => {
                                 window.location.replace('');
                                 const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
-                                axios.post(`${process.env.REACT_APP_PAGE}/cart/deleteall/user/${LoggedUserJSON.user}/token/${process.env.REACT_APP_API_KEY}`)
+                                axios.post(`${process.env.REACT_APP_PAGE}/cart/deleteall/user/${LoggedUserJSON.GeneralInfo.user}/token/${process.env.REACT_APP_API_KEY}`)
                             }}>Eliminar Todo</div></div>
                     </div>
 
@@ -140,11 +140,11 @@ const CarritoPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
                         }}>
                             Finalizar Compra
                         </div>
-                        { preferenceId === null
-                            ?null
-                            :<MercadoPago preferenceId={preferenceId} />
+                        {preferenceId === null
+                            ? null
+                            : <MercadoPago preferenceId={preferenceId} />
                         }
-                        
+
                     </div>
                     <NotRealPage />
 

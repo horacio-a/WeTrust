@@ -68,8 +68,6 @@ const UserPanel = () => {
 
             setLoadingPedidos(true)
             const response = await axios.get(`${process.env.REACT_APP_PAGE}/pedidos/user/${LoggedUserJSON.GeneralInfo.user}/token/${process.env.REACT_APP_API_KEY}`)
-            console.log(response.data, 'response.data')
-
             setDataPedidos(response.data)
             setLoadingPedidos(false)
 
@@ -141,12 +139,10 @@ const UserPanel = () => {
                                 window.location.replace('');
                             }
                             }>Cerrar</div>
-
                         </div>
                         <div className="blockCloseSession">
                             <div className="tituloSession">Eliminar cuenta</div>
                             <div className="subtituloSession">La cuenta una vez eliminada no se podrá volver a recuperar</div>
-
                             <div className="deleteBtn" onClick={() => {
 
                             }

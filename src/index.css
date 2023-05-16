@@ -1297,7 +1297,7 @@ main.mainCart {
 
 
 
-.Passforget{
+.Passforget {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -1307,13 +1307,15 @@ main.mainCart {
     font-size: 1.75vh;
     font-weight: 100;
 }
-.PassforgetTxt{
-    opacity: 75%    ;
+
+.PassforgetTxt {
+    opacity: 75%;
     color: #EEEBDD;
 
 
 }
-.PassforgetTxt:hover{
+
+.PassforgetTxt:hover {
     opacity: 100%;
     cursor: pointer;
 
@@ -2167,7 +2169,7 @@ form.adrress .row .unitrowFull .labelForm {
     transition: transform 300ms ease-in-out;
 }
 
-.conteinerErrorSearch{
+.conteinerErrorSearch {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2563,7 +2565,7 @@ form.formStep2 {
 }
 
 
-.mainConfirm{
+.mainConfirm {
     width: 100%;
     height: 85vh;
     display: flex;
@@ -2571,7 +2573,7 @@ form.formStep2 {
     align-items: center;
 }
 
-.containerConfirm{
+.containerConfirm {
     width: 50%;
     height: 50%;
     border-radius: 10px;
@@ -2581,7 +2583,7 @@ form.formStep2 {
     align-items: center;
 }
 
-.TxtConfirmacion{
+.TxtConfirmacion {
     color: #3E3733;
     width: 100%;
     height: 100%;
@@ -2593,7 +2595,7 @@ form.formStep2 {
 
 
 
-.TxtConfirmacion h1{ 
+.TxtConfirmacion h1 {
     color: #3E3733;
     text-align: center;
     margin-top: 10%;
@@ -2603,14 +2605,14 @@ form.formStep2 {
 
 
 
-.TxtConfirmacion .txt{ 
+.TxtConfirmacion .txt {
 
     font-size: 2.25vh;
     color: #3E3733;
     text-align: center;
 }
 
-.btnReenviar{
+.btnReenviar {
     margin-top: 5%;
     color: #3E3733;
     border-radius: 5px;
@@ -2624,12 +2626,12 @@ form.formStep2 {
     transition: all .1s;
 }
 
-.btnReenviar:hover{
+.btnReenviar:hover {
     color: #DCD6BC;
     background-color: #3E3733;
 }
 
-.TxtConfirmacion2{
+.TxtConfirmacion2 {
     width: 30%;
     height: 30%;
     border-radius: 10px;
@@ -2639,26 +2641,26 @@ form.formStep2 {
     align-items: center;
 }
 
-.TxtConfirmacion2 h1{
+.TxtConfirmacion2 h1 {
     color: #3E3733;
     margin-top: 7.5%;
     margin-bottom: 5%;
 }
 
-.TxtConfirmacion2 .txt{
+.TxtConfirmacion2 .txt {
     color: #3E3733;
     font-size: 2vh;
 }
 
 
-.mainResetPass{
+.mainResetPass {
     width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
 }
 
-.continerImgResetpass{
+.continerImgResetpass {
     z-index: 1000;
     position: fixed;
     width: 100%;
@@ -2668,14 +2670,14 @@ form.formStep2 {
     align-items: center;
 }
 
-.continerImgResetpass img{
+.continerImgResetpass img {
     width: auto;
     height: 75%;
     cursor: pointer;
 }
 
 
-.continerResetpass{
+.continerResetpass {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -2715,7 +2717,7 @@ form.formStep2 {
 }
 
 
-.buttonResetpass{
+.buttonResetpass {
     cursor: pointer;
     color: #EEEBDD;
     display: flex;
@@ -2728,14 +2730,14 @@ form.formStep2 {
 }
 
 
-.buttonResetpass:hover{
+.buttonResetpass:hover {
     background-color: #292948;
 
 }
 
 
 
-.titleResetPass{
+.titleResetPass {
     color: #3E3733;
     font-size: 2.75vh;
     font-weight: 500;
@@ -2743,7 +2745,7 @@ form.formStep2 {
 
 }
 
-.continerFormPass{
+.continerFormPass {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -2757,7 +2759,7 @@ form.formStep2 {
 }
 
 
-.continerResetpassMsg{
+.continerResetpassMsg {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -2770,12 +2772,69 @@ form.formStep2 {
     align-items: center;
 }
 
-.continerResetpassMsg .titleResetPass{
+.continerResetpassMsg .titleResetPass {
     margin-top: 10%;
     margin-bottom: 10%;
 }
 
-.continerResetpassMsg .buttonResetpass{
+.continerResetpassMsg .buttonResetpass {
     margin-top: 10%;
 }
 
+.mainNosotros {
+    width: 100%;
+    height: 220vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.txtNosotros {
+    margin-top: 20vh;
+    margin-bottom: 20vh;
+    color: #EEEBDD;
+    width: 85%;
+    font-size: 2.35vh;
+    text-align: center;
+}
+
+.mainNosotros img {
+    width: 100%;
+}
+
+.conteinerImgDireccion {
+    height: 40vh;
+    width: 85%;
+    position: relative;
+}
+
+.imgDireccion {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    opacity: 50%;
+}
+
+.txtImgDireccion {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.txtImgDireccion div {
+    color: #EEEBDD;
+    font-size: 2.75vh;
+}
+
+.txtImgDireccion i {
+    color: #EEEBDD;
+    font-size: 4vh;
+    margin-bottom: 2.5vh;
+    margin-top: 2.5vh;
+
+}

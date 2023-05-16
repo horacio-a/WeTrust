@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { Toaster, toast } from 'sonner'
 
 
 import '../index.css'
@@ -18,7 +19,6 @@ const ProductPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
     const [talles, setTalles] = useState([])
     const [SelectTalle, SetSelectTalle] = useState()
     const [allJson, SetSallJson] = useState([])
-    const [msg, setMsg] = useState()
     const setValor = (event) => {
         var hijos = conteinerBtn.current.children
         for (let i = 0; i < hijos.length; i++) {
@@ -35,7 +35,7 @@ const ProductPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
 
     const addToCard = () => {
         let data = ShoppingCart
-        const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
+        const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser')).GeneralInfo
         if (LoggedUserJSON) {
             function getStockPorTalle(cantidad) {
                 if (productos.category === 'shoe') {
@@ -138,8 +138,6 @@ const ProductPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
                 }
             }
             if (SelectTalle || productos.category === 'accessories') {
-                console.log(allJson.talles)
-                console.log(SelectTalle)
 
                 if (data.length > 0) {
                     if (dataRepeated() === undefined) {
@@ -156,9 +154,8 @@ const ProductPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
                         setShoppingCart(data)
                         setTimeout(() => {
                             setButtonLoding(false)
-                            setMsg('se agregado ' + productos.name + 'al carrito')
-
-                        }, 2000);
+                            toast.success('se agregado ' + productos.name + 'al carrito')
+                        }, 1500);
 
                     } else {
                         let dataRepeat = dataRepeated()
@@ -179,13 +176,12 @@ const ProductPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
                             setShoppingCart(dataFilter)
                             setTimeout(() => {
                                 setButtonLoding(false)
-                                setMsg(`se agregado ${productos.name} al carrito x${cantidad}`)
-
-                            }, 2000);
+                                toast.success(`Se agregado ${productos.name} al carrito x${cantidad}`)
+                            }, 1500);
 
 
                         } else {
-                            setMsg('no hay stock mas stock en ' + SelectTalle)
+                            toast.error('No hay stock mas stock en ' + SelectTalle)
                         }
 
 
@@ -204,20 +200,18 @@ const ProductPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
                     data.push({ id_product: productos.id, user: LoggedUserJSON.user, name: productos.name, price: productos.price, quantity: 1, talle: SelectTalle, category: productos.category, img: img, max_stock: max_stock })
                     setShoppingCart(data)
                     setTimeout(() => {
-
-                        setMsg('se agregado ' + productos.name + 'al carrito')
-
                         setButtonLoding(false)
-                    }, 2000);
+
+                        toast.success('Se agregado ' + productos.name + ' al carrito')
+                    }, 1500);
 
                 }
-
             } else {
-                setMsg('seleccione un talle')
+                toast.error('Seleccion un talle')
             }
 
         } else {
-            setMsg('Para comprar registrate')
+            toast.error('Para comprar registrate')
         }
 
     }
@@ -226,8 +220,7 @@ const ProductPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
         window.scrollTo(0, 0);
         const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
         const getcart = async () => {
-            const cart = await (await axios.get(`${process.env.REACT_APP_PAGE}/cart/getInfo/user/${LoggedUserJSON.user}/token/${process.env.REACT_APP_API_KEY}`)).data
-            console.log(cart)
+            const cart = await (await axios.get(`${process.env.REACT_APP_PAGE}/cart/getInfo/user/${LoggedUserJSON.GeneralInfo.user}/token/${process.env.REACT_APP_API_KEY}`)).data
             setShoppingCart(cart)
         }
         getcart()
@@ -299,6 +292,8 @@ const ProductPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
 
     return (
         <>
+            <Toaster richColors position="top-center" />
+
             <Header setSearchState={setSearchState} SearchState={SearchState} />
 
             <div className={`MainPages  ${SearchState ? 'Deactivated' : 'Active'}`}>
@@ -336,12 +331,11 @@ const ProductPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
                                                         <div class="spinner"></div>
                                                     </div>
                                                 </div>
-                                                : <div className="BtnProducto" onClick={()=>{
-                                                    addToCard()  
+                                                : <div className="BtnProducto" onClick={() => {
+                                                    addToCard()
                                                 }} >Comprar</div>
                                         }
 
-                                        <div className="BlockMsg">{msg} </div>
                                     </div>
 
                                 </div>

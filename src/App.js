@@ -13,7 +13,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductBrandPage from './pages/productBrand';
-
+import NosotrosPages from './pages/Nostros';
 
 function App() {
   const [ShoppingCart, setShoppingCart] = useState([])
@@ -51,6 +51,11 @@ function App() {
         <Routes>
 
           <Route path='/' element={<IndexPage
+            ShoppingCart={ShoppingCart}
+            SearchState={SearchState}
+            setSearchState={setSearchState} />} />
+
+          <Route path='/nosotros' element={<NosotrosPages
             ShoppingCart={ShoppingCart}
             SearchState={SearchState}
             setSearchState={setSearchState} />} />
