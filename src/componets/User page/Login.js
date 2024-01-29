@@ -119,7 +119,7 @@ const LoginComponent = ({ envioLogin, setCart }) => {
                     to_name: ValueRegister.name,
                     to_email: ValueRegister.email,
                     authCod: response.data.authCod,
-                    Email_data:'¡Gracias por registrarse en WeTrust! Estamos encantados de tenerle a bordo y estaremos encantados de ayudarte a vestirte como siempre soñaste. Por favor, confirme su correo electrónico ' +  ValueRegister.email + ' haciendo clic en el botón de abajo.'
+                    Email_data: '¡Gracias por registrarse en WeTrust! Estamos encantados de tenerle a bordo y estaremos encantados de ayudarte a vestirte como siempre soñaste. Por favor, confirme su correo electrónico ' + ValueRegister.email + ' haciendo clic en el botón de abajo.'
                 }
                 emailjs.send(
                     process.env.REACT_APP_SERVICE,
@@ -230,9 +230,9 @@ const LoginComponent = ({ envioLogin, setCart }) => {
                 TypeForm
                     ? <>
                         <form className='formLogin' ref={formLogin}>
-                            <input type={'text'} placeholder={'nombre'} name={'name'}></input>
+                            <input type={'text'} placeholder={'nombre'} name={'Name'}></input>
                             <div className="conteinerInputPassword">
-                                <input type={`${VisiblePassword.pass1 ? 'password' : 'text'}`} placeholder={'contraseña'} name={'password'}></input>
+                                <input type={`${VisiblePassword.pass1 ? 'password' : 'text'}`} placeholder={'Contraseña'} name={'password'}></input>
                                 <i className={`fa-solid ${VisiblePassword.pass1 ? 'fa-eye' : 'fa-eye-slash'}`} onClick={() => {
                                     ChangeStateVisiblePassword('pass1')
                                 }}></i>
@@ -251,12 +251,12 @@ const LoginComponent = ({ envioLogin, setCart }) => {
                             !SndStep
                                 ? <>
                                     <form className='formLogin' ref={formRegister}>
-                                        <input type={'text'} placeholder={'nombre de usuario '} name={'user'} onChange={handleInputChange}></input>
-                                        <input type={'email'} placeholder={'email'} name={'email'} onChange={handleInputChange}></input>
+                                        <input type={'text'} placeholder={'Nombre de usuario '} name={'user'} onChange={handleInputChange}></input>
+                                        <input type={'email'} placeholder={'Email'} name={'email'} onChange={handleInputChange}></input>
                                         <input type={'email'} placeholder={'Confirmar email'} name={'confirmEmail'} onChange={handleInputChange} />
 
                                         <div className="conteinerInputPassword">
-                                            <input type={`${VisiblePassword.pass2 ? 'password' : 'text'}`} placeholder={'contraseña'}
+                                            <input type={`${VisiblePassword.pass2 ? 'password' : 'text'}`} placeholder={'Contraseña'}
                                                 name={'password'} onChange={handleInputChange} autoComplete='off' />
                                             <i className={`fa-solid ${VisiblePassword.pass2 ? 'fa-eye' : 'fa-eye-slash'}`} onClick={() => {
                                                 ChangeStateVisiblePassword('pass2')

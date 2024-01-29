@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useMercadopago } from 'react-sdk-mercadopago';
 
-const FORM_ID = 'payment-form';
 
 
 const MercadoPago = ({ preferenceId }) => {
@@ -27,7 +26,7 @@ const MercadoPago = ({ preferenceId }) => {
 
     return (
         <div class="cho-container" />
-        );
+    );
 
 }
 

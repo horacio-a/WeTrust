@@ -6,7 +6,7 @@ import Footer from "../componets/general/footer";
 import React, { useEffect, useState } from "react";
 import NotRealPage from "../componets/general/NotRealPage";
 import CartItem from "../componets/CartItem";
-import MercadoPago from "../componets/MercadoPago";
+import MercadoPago from "../services/MercadoPago";
 
 const CarritoPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchState }) => {
     window.scrollTo(0, 0);

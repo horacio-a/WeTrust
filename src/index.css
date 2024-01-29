@@ -1259,7 +1259,6 @@ main.mainCart {
 
 
 .formLogin input::placeholder {
-    text-transform: capitalize;
     color: #3E3733;
     font-family: 'Rubik', sans-serif;
     font-size: 1.75vh;
@@ -1358,6 +1357,7 @@ main.mainCart {
 }
 
 .conteinerInputPassword i {
+    cursor: pointer;
     width: 5%;
     font-size: 2.2vh;
     color: #EEEBDD;
