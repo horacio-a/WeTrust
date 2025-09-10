@@ -51,9 +51,7 @@ const LoginComponent = ({ envioLogin, setCart }) => {
             user: formLogin.current.name.value,
             password: formLogin.current.password.value
         })
-
         const response = await axios.post(`${process.env.REACT_APP_PAGE}/usuarios/login/token/${process.env.REACT_APP_API_KEY}`, { obj })
-        console.log(response)
 
         if (response.data[0].authenticated === true) {
             window.localStorage.setItem(
@@ -192,7 +190,6 @@ const LoginComponent = ({ envioLogin, setCart }) => {
 
 
     const ChangeStateVisiblePassword = (name) => {
-        console.log(VisiblePassword[name])
         if (VisiblePassword[name] === true) {
             setVisiblePassword({
                 ...VisiblePassword,
@@ -230,7 +227,7 @@ const LoginComponent = ({ envioLogin, setCart }) => {
                 TypeForm
                     ? <>
                         <form className='formLogin' ref={formLogin}>
-                            <input type={'text'} placeholder={'nombre'} name={'Name'}></input>
+                            <input type={'text'} placeholder={'nombre'} name={'name'}></input>
                             <div className="conteinerInputPassword">
                                 <input type={`${VisiblePassword.pass1 ? 'password' : 'text'}`} placeholder={'Contraseña'} name={'password'}></input>
                                 <i className={`fa-solid ${VisiblePassword.pass1 ? 'fa-eye' : 'fa-eye-slash'}`} onClick={() => {

@@ -11,7 +11,7 @@ const EnviosGratis = ({ state, animation, closeHead }) => {
         <>
             <div className={`BlockEnvio ${animation ? 'animation' : 'noanimation '} ${state ? 'active' : 'desactive'}`}>
                 <div className="textBlockEnvio">
-                    <i className="fa-sharp fa-solid fa-truck-fast"></i>
+                    <i className="fa-sharp fa-solid fa-truck-fast"></i>&nbsp;
                     Envios a todo el pais. Pagá con el método de pago que prefieras.
                 </div>
 

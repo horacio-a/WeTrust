@@ -19,13 +19,13 @@ const ProductSubcategoryPage = ({ setSearchState, SearchState }) => {
     const [numImg, setNumImg] = useState()
 
     useEffect(() => {
-        setNumImg(Math.floor(Math.random() * 4)) 
+        setNumImg(Math.floor(Math.random() * 4))
     }, [setNumImg])
 
 
     useEffect(() => {
 
-        const cargarMineria = async () => {
+        const cargarSubCategory = async () => {
             setLoading(true);
             const response = await axios.get(`${process.env.REACT_APP_PAGE}/api/productos/subcategory/${subcategory}/token/${process.env.REACT_APP_API_KEY}`);
             setProductos(response.data)
@@ -33,7 +33,7 @@ const ProductSubcategoryPage = ({ setSearchState, SearchState }) => {
             setLoading(false)
         }
 
-        cargarMineria();
+        cargarSubCategory();
 
 
     }, [subcategory]);
@@ -42,7 +42,7 @@ const ProductSubcategoryPage = ({ setSearchState, SearchState }) => {
             <Header setSearchState={setSearchState} SearchState={SearchState} />
 
             <div className={`MainPages  ${SearchState ? 'Deactivated' : 'Active'}`}>
-                <ProductsTitle titulo={subcategory} numImg={numImg}/>
+                <ProductsTitle titulo={subcategory} numImg={numImg} />
 
                 <main className="mainProducto">
                     <div className="carrusel-products">

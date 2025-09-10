@@ -19,7 +19,7 @@ const ProductBrandPage = ({ setSearchState, SearchState }) => {
     const [numImg, setNumImg] = useState()
 
     useEffect(() => {
-        setNumImg(Math.floor(Math.random() * 4)) 
+        setNumImg(Math.floor(Math.random() * 4))
     }, [setNumImg])
 
 
@@ -42,7 +42,7 @@ const ProductBrandPage = ({ setSearchState, SearchState }) => {
             <Header setSearchState={setSearchState} SearchState={SearchState} />
 
             <div className={`MainPages  ${SearchState ? 'Deactivated' : 'Active'}`}>
-                <ProductsTitle titulo={marca} numImg={numImg}/>
+                <ProductsTitle titulo={marca} numImg={numImg} />
 
                 <main className="mainProducto">
                     <div className="carrusel-products">
@@ -62,7 +62,9 @@ const ProductBrandPage = ({ setSearchState, SearchState }) => {
                                     img={item.img}
                                     category={item.produto.category}
                                     talles={item.talles}
-                                />)
+                                />
+
+                                )
                             )
                         }
                     </div>

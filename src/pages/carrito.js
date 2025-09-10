@@ -17,7 +17,8 @@ const CarritoPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
 
     const AddPedido = () => {
 
-        const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser'))
+        const LoggedUserJSON = JSON.parse(window.localStorage.getItem('LoggedAppUser')).GeneralInfo
+        console.log(LoggedUserJSON.user)
         // window.location.replace('');
         axios.post(`${process.env.REACT_APP_PAGE}/cart/deleteall/user/${LoggedUserJSON.user}/token/${process.env.REACT_APP_API_KEY}`)
         var today = new Date()
@@ -135,8 +136,8 @@ const CarritoPage = ({ ShoppingCart, setShoppingCart, setSearchState, SearchStat
 
 
                         <div className="BtnSell" onClick={() => {
-                            pay()
-                            // AddPedido()
+                            // pay()
+                            AddPedido()
                         }}>
                             Finalizar Compra
                         </div>

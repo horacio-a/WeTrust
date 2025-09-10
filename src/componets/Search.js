@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useId } from "react";
 import { Link } from "react-router-dom";
 
 const Search = ({ SearchState, setSearchState }) => {
@@ -95,9 +95,9 @@ const Search = ({ SearchState, setSearchState }) => {
                     <div className="CategorySearch">
                         <div className="TituloCategorySearch">Categorías</div>
                         <div className="conteinerCategory" ref={conteinerCategory}>
-                            {Category.map((item) => {
+                            {Category.map((item, index) => {
                                 return (
-                                    <div className="unitCategory Deactivated"
+                                    <div key={index} className="unitCategory Deactivated"
                                         onClick={CategoryChangeState}>
                                         {item}
                                     </div>

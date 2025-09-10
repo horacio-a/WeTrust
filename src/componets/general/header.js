@@ -52,7 +52,7 @@ const Header = ({ setSearchState, SearchState }) => {
 
     useEffect(() => {
         if (localStorage.getItem("mi_super_anuncio") !== null) {
-            if ((Math.round(new Date().getTime() / 1000) - Number(localStorage.getItem("mi_super_anuncio"))) < 86400 ) {
+            if ((Math.round(new Date().getTime() / 1000) - Number(localStorage.getItem("mi_super_anuncio"))) < 86400) {
                 setstate(false)
                 setanimation(false)
             }
@@ -115,9 +115,9 @@ const Header = ({ setSearchState, SearchState }) => {
                                     Marcas
                                 </div>
                                 {
-                                    marcas.map(item => {
+                                    marcas.map((item, index) => {
                                         return (
-                                            <Link to={`/marca/${item}`} className="categorioHeader" onClick={HeaderMarcaFuntion}>
+                                            <Link key={index} to={`/marca/${item}`} className="categorioHeader" onClick={HeaderMarcaFuntion}>
                                                 <i className="fa-solid fa-caret-right"></i>
                                                 <div>{item}</div>
                                             </Link>)
